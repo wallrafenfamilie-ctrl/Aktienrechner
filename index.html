@@ -29,6 +29,12 @@ table{width:100%;border-collapse:collapse;font-size:13px;min-width:480px}th,td{t
 footer{color:var(--muted);font-size:11px;line-height:1.5;padding:6px 2px}
 @media(max-width:420px){.grid{gap:9px}.panel{padding:13px}.stat strong{font-size:17px}}
 </style>
+
+<link rel="manifest" href="manifest.json">
+<link rel="apple-touch-icon" href="icon-192.png">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 </head>
 <body>
 <main>
@@ -241,5 +247,11 @@ $('addMore').addEventListener('click',()=>{
 });
 renderPortfolio();
 calc();
+</script>
+
+<script>
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => { navigator.serviceWorker.register('./sw.js').catch(console.error); });
+}
 </script>
 </body></html>
