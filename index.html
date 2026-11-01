@@ -118,7 +118,7 @@ function calc(){
   const net=preTax-taxDue;
   return {sale,priceGain,costs,preTax,taxDue,net,returnPct:invested>0?net/invested*100:0};
  }
- const rows=[5,10,15,18,20].map(p=>{
+ const rows=[10,15,20].map(p=>{
   const target=entry*(1+p/100),o=outcome(target);
   return `<tr><td>+${p} %</td><td>${euro(target)}</td><td>${euro(o.priceGain)}</td><td>${euro(o.costs)}</td><td class="${o.preTax>=0?'good':'bad'}">${euro(o.preTax)}</td><td>${euro(o.taxDue)}</td><td class="${o.net>=0?'good':'bad'}">${euro(o.net)}</td><td class="${o.returnPct>=0?'good':'bad'}">${pct(o.returnPct)}</td></tr>`;
  }).join('');
