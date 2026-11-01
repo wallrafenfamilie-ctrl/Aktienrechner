@@ -8,42 +8,20 @@
 <style>
 :root{--bg:#0b1220;--panel:#141f31;--panel2:#1b2940;--text:#f3f6fb;--muted:#aab7ca;--line:#2b3a52;--accent:#7dd3fc;--good:#68d6a3;--bad:#ff8c8c}
 *{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--text);font:16px system-ui,-apple-system,Segoe UI,Roboto,sans-serif;padding:env(safe-area-inset-top) 14px env(safe-area-inset-bottom)}
-main{max-width:760px;margin:auto;padding:18px 0 34px}.top{padding:8px 2px 16px}.eyebrow{color:var(--accent);font-size:12px;font-weight:700;letter-spacing:.12em;text-transform:uppercase}
-h1{font-size:26px;margin:5px 0}.sub{color:var(--muted);font-size:14px}
-nav{display:flex;gap:7px;overflow:auto;padding:5px 0 14px;position:sticky;top:0;background:var(--bg);z-index:2}
-nav button{white-space:nowrap;border:1px solid var(--line);background:var(--panel);color:var(--muted);padding:10px 13px;border-radius:12px;font-weight:650}
-nav button.active{background:var(--accent);color:#082033;border-color:var(--accent)}
-.panel{background:var(--panel);border:1px solid var(--line);border-radius:18px;padding:16px;margin:0 0 13px}
-h2{font-size:18px;margin:0 0 13px}h3{font-size:14px;margin:0 0 8px;color:var(--muted)}
-.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
-.field{display:flex;flex-direction:column;gap:6px}.field label{font-size:13px;color:var(--muted)}
-input,select{width:100%;background:#0d1727;border:1px solid var(--line);border-radius:11px;padding:12px;color:var(--text);font:inherit;min-width:0}
-input:focus,select:focus{outline:2px solid var(--accent);border-color:transparent}
-.full{grid-column:1/-1}.muted{color:var(--muted);font-size:12px;line-height:1.45}
-.stats{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}
-.stat{background:var(--panel2);border-radius:13px;padding:12px;min-width:0}.stat small{display:block;color:var(--muted);font-size:12px;margin-bottom:5px}.stat strong{font-size:19px;overflow-wrap:anywhere}
-.good{color:var(--good)}.bad{color:var(--bad)}.tablewrap{overflow-x:auto}
-table{width:100%;border-collapse:collapse;font-size:13px;min-width:480px}th,td{text-align:right;padding:10px 7px;border-bottom:1px solid var(--line);white-space:nowrap}th:first-child,td:first-child{text-align:left}th{color:var(--muted);font-weight:600}
-.note{border-left:3px solid var(--accent);padding:9px 11px;background:#102337;border-radius:7px;color:#c9d9e8;font-size:12px;line-height:1.5}
-.hidden{display:none!important}.check{display:flex;align-items:center;gap:9px;color:var(--muted);font-size:13px}.check input{width:auto}
-footer{color:var(--muted);font-size:11px;line-height:1.5;padding:6px 2px}
-@media(max-width:420px){.grid{gap:9px}.panel{padding:13px}.stat strong{font-size:17px}}
+main{max-width:900px;margin:auto;padding:18px 0 34px}.top{padding:8px 2px 16px}.eyebrow{color:var(--accent);font-size:12px;font-weight:700;letter-spacing:.12em;text-transform:uppercase}h1{font-size:26px;margin:5px 0}.sub{color:var(--muted);font-size:14px}
+nav{display:flex;gap:7px;overflow:auto;padding:5px 0 14px;position:sticky;top:0;background:var(--bg);z-index:2}nav button{white-space:nowrap;border:1px solid var(--line);background:var(--panel);color:var(--muted);padding:10px 13px;border-radius:12px;font-weight:650}nav button.active{background:var(--accent);color:#082033;border-color:var(--accent)}
+.panel{background:var(--panel);border:1px solid var(--line);border-radius:18px;padding:16px;margin:0 0 13px}h2{font-size:18px;margin:0 0 13px}h3{font-size:14px;margin:0 0 8px;color:var(--muted)}
+.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.field{display:flex;flex-direction:column;gap:6px}.field label{font-size:13px;color:var(--muted)}input,select{width:100%;background:#0d1727;border:1px solid var(--line);border-radius:11px;padding:12px;color:var(--text);font:inherit;min-width:0}input:focus,select:focus{outline:2px solid var(--accent);border-color:transparent}.full{grid-column:1/-1}.muted{color:var(--muted);font-size:12px;line-height:1.5}
+.stats{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px;margin:0 0 12px}.stat{background:var(--panel2);border-radius:13px;padding:12px;min-width:0}.stat small{display:block;color:var(--muted);font-size:12px;margin-bottom:5px}.stat strong{font-size:19px;overflow-wrap:anywhere}.good{color:var(--good)}.bad{color:var(--bad)}.tablewrap{overflow-x:auto}table{width:100%;border-collapse:collapse;font-size:12px;min-width:760px}th,td{text-align:right;padding:10px 8px;border-bottom:1px solid var(--line);white-space:nowrap}th:first-child,td:first-child{text-align:left}th{color:var(--muted);font-weight:600}.note{border-left:3px solid var(--accent);padding:9px 11px;background:#102337;border-radius:7px;color:#c9d9e8;font-size:12px;line-height:1.5}.hidden{display:none!important}.check{display:flex;align-items:center;gap:9px;color:var(--muted);font-size:13px}.check input{width:auto}footer{color:var(--muted);font-size:11px;line-height:1.5;padding:6px 2px}
+@media(max-width:520px){main{padding-top:12px}.grid{gap:9px}.panel{padding:13px}.stat strong{font-size:17px}h1{font-size:24px}}
 </style>
-
-<link rel="manifest" href="manifest.json">
-<link rel="apple-touch-icon" href="icon-192.png">
-<meta name="mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 </head>
 <body>
 <main>
-<header class="top"><div class="eyebrow">Privater Rechner</div><h1>Mein Aktienrechner</h1><div class="sub">Kaufplanung · Kursziele · Nettogewinn · Trailing-Stop</div></header>
+<header class="top"><div class="eyebrow">Privater Rechner</div><h1>Mein Aktienrechner</h1><div class="sub">Kaufplanung · Kursziele · Kosten · Nettogewinn</div></header>
 <nav>
-<button class="active" data-tab="kauf">Kauf & Budget</button>
-<button data-tab="ziele">Kursziele & Gewinn</button>
+<button class="active" data-tab="kauf">Kauf & Gewinn</button>
 <button data-tab="stop">Trailing-Stop</button>
-<button data-tab="depot">Mein Depot</button>
 <button data-tab="einstellungen">Kosten & Steuern</button>
 </nav>
 
@@ -53,7 +31,9 @@ footer{color:var(--muted);font-size:11px;line-height:1.5;padding:6px 2px}
 <div class="grid">
 <div class="field"><label for="entry">Einstiegskurs je Aktie (€)</label><input id="entry" type="number" min="0" step="0.0001" value="74.27"></div>
 <div class="field"><label for="budget">Dein Budget inklusive Kaufgebühr (€)</label><input id="budget" type="number" min="0" step="0.01" value="150"></div>
-<div class="field full"><label for="quantityMode">Kaufmenge</label><select id="quantityMode"><option value="fraction">Bruchstücke zulassen</option><option value="whole">Nur ganze Aktien</option></select></div>
+<div class="field"><label for="quantityMode">Kaufmenge</label><select id="quantityMode"><option value="fraction">Bruchstücke zulassen</option><option value="whole">Nur ganze Aktien</option></select></div>
+<div class="field"><label for="current">Aktueller Kurs (€) – optional</label><input id="current" type="number" min="0" step="0.0001" placeholder="z. B. 82,00"></div>
+<div class="field full"><label for="customTarget">Eigenes Kursziel (€) – optional</label><input id="customTarget" type="number" min="0" step="0.0001" placeholder="z. B. 100,00"></div>
 </div>
 </div>
 <div class="stats">
@@ -61,30 +41,28 @@ footer{color:var(--muted);font-size:11px;line-height:1.5;padding:6px 2px}
 <div class="stat"><small>Wert der Aktien</small><strong id="stockValue">–</strong></div>
 <div class="stat"><small>Kaufgebühr</small><strong id="buyFeeOut">–</strong></div>
 <div class="stat"><small>Gesamteinsatz</small><strong id="totalCost">–</strong></div>
+<div class="stat"><small>Übriges Budget</small><strong id="leftover">–</strong></div>
+<div class="stat"><small>Aktueller Gewinn/Verlust netto</small><strong id="currentNet">–</strong></div>
 </div>
-<p class="muted">Die Stückzahl wird so berechnet, dass dein Budget einschließlich Kaufgebühr nicht überschritten wird.</p>
-</section>
-
-<section id="ziele" class="tab hidden">
-<div class="panel"><h2>2. Kursziele und Nettogewinn</h2>
-<div class="grid">
-<div class="field"><label for="current">Aktueller Kurs (€) – optional</label><input id="current" type="number" min="0" step="0.0001" placeholder="z. B. 82,00"></div>
-<div class="field"><label for="customTarget">Eigenes Kursziel (€) – optional</label><input id="customTarget" type="number" min="0" step="0.0001" placeholder="z. B. 100,00"></div>
-</div></div>
 <div class="panel">
-<div class="tablewrap"><table><thead><tr><th>Kursplus</th><th>Zielkurs</th><th>Verkaufswert</th><th>Gewinn netto*</th></tr></thead><tbody id="targets"></tbody></table></div>
-<div class="muted">* Nach Kauf- und Verkaufsgebühr sowie geschätzter deutscher Abgeltungsteuer. Die Steuer wird nur auf den steuerpflichtigen Gewinn berechnet.</div>
+<h2>2. Kursziele und Gewinn auf einen Blick</h2>
+<div class="tablewrap"><table>
+<thead><tr><th>Kursplus</th><th>Zielkurs</th><th>Wertzuwachs vor Kosten</th><th>Orderkosten gesamt</th><th>Gewinn vor Steuer*</th><th>Steuer</th><th>Gewinn netto</th><th>Netto-Rendite</th></tr></thead>
+<tbody id="targets"><tr><td colspan="8">Bitte Einstiegskurs und Budget eingeben.</td></tr></tbody>
+</table></div>
+<p class="muted" style="margin-top:10px">* Der Wertzuwachs zeigt die reine Kurssteigerung ohne Gebühren. „Gewinn vor Steuer“ zieht Kauf- und Verkaufsgebühr bereits ab. Der Nettogewinn berücksichtigt zusätzlich den eingestellten Steuersatz und den noch verfügbaren Sparer-Pauschbetrag. Die Netto-Rendite bezieht sich auf deinen gesamten Einsatz inklusive Kaufgebühr.</p>
 </div>
-<div class="stats">
-<div class="stat"><small>Wert zum aktuellen Kurs</small><strong id="currentValue">–</strong></div>
-<div class="stat"><small>Gewinn/Verlust netto aktuell</small><strong id="currentNet">–</strong></div>
-<div class="stat"><small>Eigenes Kursziel</small><strong id="customOut">–</strong></div>
-<div class="stat"><small>Netto-Gewinn am eigenen Ziel</small><strong id="customNet">–</strong></div>
+<div class="panel" id="customPanel">
+<h3>Dein eigenes Kursziel</h3>
+<div class="stats" style="margin-bottom:0">
+<div class="stat"><small>Erforderliche Kurssteigerung</small><strong id="customRise">–</strong></div>
+<div class="stat"><small>Geschätzter Nettogewinn</small><strong id="customNet">–</strong></div>
+</div>
 </div>
 </section>
 
 <section id="stop" class="tab hidden">
-<div class="panel"><h2>3. Stop-Loss-Trailing-Rechner</h2>
+<div class="panel"><h2>Trailing-Stop-Rechner</h2>
 <div class="grid">
 <div class="field"><label for="activation">Aktivierung ab Kursplus (%)</label><input id="activation" type="number" step="0.1" value="10"></div>
 <div class="field"><label for="trail">Trailing-Abstand (%)</label><input id="trail" type="number" min="0" step="0.1" value="5"></div>
@@ -99,47 +77,12 @@ footer{color:var(--muted);font-size:11px;line-height:1.5;padding:6px 2px}
 <div class="stat"><small>Geschätzter Nettogewinn am Stop</small><strong id="stopNet">–</strong></div>
 <div class="stat"><small>Verkaufswert am Stop</small><strong id="stopSale">–</strong></div>
 </div>
-<div class="panel" style="margin-top:13px"><div id="stopStatus" class="note">Trage den höchsten Kurs und den aktuellen Kurs ein. Der Stop wird aus dem höchsten Kurs minus Trailing-Abstand berechnet.</div></div>
+<div class="panel" style="margin-top:13px"><div id="stopStatus" class="note">Trage den höchsten Kurs seit Aktivierung und den aktuellen Kurs ein.</div></div>
 <p class="muted">Der Trailing-Stop folgt dem Kurs nur nach oben, nicht nach unten. In der Praxis kann der tatsächliche Verkaufskurs wegen Kurslücken, Spread und Ausführung vom errechneten Stop abweichen. Dies ist eine Rechenhilfe, keine Order bei deinem Broker.</p>
 </section>
 
-<section id="depot" class="tab hidden">
-<div class="panel">
-<h2>5. Eigene Positionen verwalten</h2>
-<div class="grid">
-<div class="field"><label for="assetName">Aktie / Kürzel</label><input id="assetName" type="text" placeholder="z. B. Sanofi"></div>
-<div class="field"><label for="assetShares">Anzahl Aktien</label><input id="assetShares" type="number" min="0" step="0.000001" placeholder="z. B. 4"></div>
-<div class="field"><label for="assetBuy">Durchschnittlicher Kaufkurs (€)</label><input id="assetBuy" type="number" min="0" step="0.0001" placeholder="z. B. 74,27"></div>
-<div class="field"><label for="assetNow">Aktueller Kurs (€)</label><input id="assetNow" type="number" min="0" step="0.0001" placeholder="z. B. 82,00"></div>
-<div class="field full"><button id="addAsset" type="button" style="background:var(--accent);color:#082033;border:0;border-radius:11px;padding:12px;font-weight:700">Position hinzufügen</button></div>
-</div>
-<p class="muted">Die Positionen bleiben auf diesem Gerät in diesem Browser gespeichert. Kurse werden nicht automatisch aktualisiert.</p>
-</div>
-<div class="panel">
-<h2>Nachkauf buchen</h2>
-<div class="grid">
-<div class="field full"><label for="buyMoreAsset">Vorhandene Position</label><select id="buyMoreAsset"><option value="">Bitte zuerst eine Position hinzufügen</option></select></div>
-<div class="field"><label for="buyMoreShares">Zusätzliche Aktien</label><input id="buyMoreShares" type="number" min="0" step="0.000001" placeholder="z. B. 10"></div>
-<div class="field"><label for="buyMorePrice">Nachkaufkurs (€)</label><input id="buyMorePrice" type="number" min="0" step="0.0001" placeholder="z. B. 0,50"></div>
-<div class="field"><label for="buyMoreFee">Kaufgebühr (€)</label><input id="buyMoreFee" type="number" min="0" step="0.01" value="1"></div>
-<div class="field full"><button id="addMore" type="button" style="background:var(--accent);color:#082033;border:0;border-radius:11px;padding:12px;font-weight:700">Nachkauf hinzufügen & Durchschnitt neu berechnen</button></div>
-</div>
-<div class="note" style="margin-top:10px">Der neue Durchschnittskurs wird mengen- und kostenabhängig berechnet. Die eingegebene Kaufgebühr wird in den neuen Einstandswert eingerechnet. Bereits vor dem ersten Eintrag angefallene Gebühren lassen sich nachträglich nicht rekonstruieren.</div>
-</div>
-<div class="panel">
-<h2>Depotübersicht</h2>
-<div class="stats" style="margin-bottom:12px">
-<div class="stat"><small>Investiert (ohne Gebühren)</small><strong id="portfolioInvested">0,00 €</strong></div>
-<div class="stat"><small>Aktueller Depotwert</small><strong id="portfolioValue">0,00 €</strong></div>
-<div class="stat"><small>Gesamtgewinn / -verlust</small><strong id="portfolioProfit">0,00 €</strong></div>
-<div class="stat"><small>Gesamtrendite</small><strong id="portfolioReturn">0,00 %</strong></div>
-</div>
-<div id="portfolioList" class="muted">Noch keine Positionen gespeichert.</div>
-</div>
-</section>
-
 <section id="einstellungen" class="tab hidden">
-<div class="panel"><h2>4. Gebühren und Steuern einstellen</h2>
+<div class="panel"><h2>Gebühren und Steuern einstellen</h2>
 <div class="grid">
 <div class="field"><label for="buyFee">Kaufgebühr je Order (€)</label><input id="buyFee" type="number" min="0" step="0.01" value="1"></div>
 <div class="field"><label for="sellFee">Verkaufsgebühr je Order (€)</label><input id="sellFee" type="number" min="0" step="0.01" value="1"></div>
@@ -148,7 +91,7 @@ footer{color:var(--muted);font-size:11px;line-height:1.5;padding:6px 2px}
 </div>
 <p class="muted" style="margin-top:12px">Voreinstellung: 1 € je Kauf/Verkauf als vereinfachte Orderkosten und 26,375 % Abgeltungsteuer inklusive Solidaritätszuschlag, ohne Kirchensteuer. Den Pauschbetrag kannst du anteilig eintragen. Tatsächliche Steuern hängen unter anderem von Verlustverrechnung, Freistellungsauftrag, Kirchensteuer und deiner persönlichen Steuersituation ab.</p>
 </div>
-<div class="note">Die Berechnung berücksichtigt keine zusätzlichen Spread- oder Börsenplatzkosten. Bei ausländischen Aktien können außerdem Währungsumrechnungskosten anfallen.</div>
+<div class="note">Die Berechnung berücksichtigt keine zusätzlichen Spread- oder Börsenplatzkosten. Bei ausländischen Aktien können außerdem Währungsumrechnungskosten anfallen. Die Werte sind Schätzungen und keine Steuerberatung.</div>
 </section>
 <footer>Alle Berechnungen erfolgen lokal in diesem Browser. Es werden keine Depotdaten an einen Server übertragen. Bitte prüfe vor einer echten Order die Gebühren und steuerlichen Angaben deines Brokers.</footer>
 </main>
@@ -158,100 +101,43 @@ const val=id=>Math.max(0,Number($(id).value)||0);
 const euro=n=>Number.isFinite(n)?n.toLocaleString('de-DE',{style:'currency',currency:'EUR'}):'–';
 const num=n=>Number.isFinite(n)?n.toLocaleString('de-DE',{maximumFractionDigits:6}):'–';
 const pct=n=>(n>=0?'+':'')+n.toLocaleString('de-DE',{maximumFractionDigits:2})+' %';
-let portfolio=[];
-try{portfolio=JSON.parse(localStorage.getItem('myStockPortfolio')||'[]');if(!Array.isArray(portfolio))portfolio=[];}catch(e){portfolio=[];}
-function renderPortfolio(){
- const invested=portfolio.reduce((a,p)=>a+p.shares*p.buy,0);
- const value=portfolio.reduce((a,p)=>a+p.shares*p.now,0);
- const profit=value-invested;
- $('portfolioInvested').textContent=euro(invested);
- $('portfolioValue').textContent=euro(value);
- $('portfolioProfit').textContent=euro(profit);
- $('portfolioProfit').className=profit>=0?'good':'bad';
- $('portfolioReturn').textContent=invested?pct(profit/invested*100):'0,00 %';
- $('portfolioReturn').className=profit>=0?'good':'bad';
- const select=$('buyMoreAsset');const selected=select.value;
- select.innerHTML='<option value="">Position auswählen</option>'+portfolio.map((p,i)=>`<option value="${i}">${escapeText(p.name)}</option>`).join('');
- if(selected!==''&&portfolio[Number(selected)])select.value=selected;
- if(!portfolio.length){$('portfolioList').textContent='Noch keine Positionen gespeichert.';return;}
- $('portfolioList').innerHTML='<div class="tablewrap"><table><thead><tr><th>Wert</th><th>Stück</th><th>Ø Einstieg</th><th>Aktueller Kurs</th><th>Gewinn</th><th></th></tr></thead><tbody>'+
- portfolio.map((p,i)=>{const pl=p.shares*(p.now-p.buy);return `<tr><td>${escapeText(p.name)}</td><td>${num(p.shares)}</td><td>${euro(p.buy)}</td><td>${euro(p.now)}</td><td class="${pl>=0?'good':'bad'}">${euro(pl)}</td><td><button type="button" data-delete="${i}" aria-label="Position löschen" style="background:#38202a;color:#ffd0d0;border:1px solid #69404a;border-radius:8px;padding:6px 9px">✕</button></td></tr>`;}).join('')+
- '</tbody></table></div>';
- $('portfolioList').querySelectorAll('[data-delete]').forEach(b=>b.addEventListener('click',()=>{portfolio.splice(Number(b.dataset.delete),1);savePortfolio();}));
-}
-function escapeText(v){return String(v).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));}
-function savePortfolio(){localStorage.setItem('myStockPortfolio',JSON.stringify(portfolio));renderPortfolio();}
 function calc(){
  const entry=val('entry'),budget=val('budget'),buyFee=val('buyFee'),sellFee=val('sellFee'),tax=val('tax')/100,allowance=val('allowance');
- let qty=0;if(entry>0&&budget>buyFee){qty=(budget-buyFee)/entry;if($('quantityMode').value==='whole')qty=Math.floor(qty);}
- const stock=qty*entry,invested=stock+(qty>0?buyFee:0);
- $('qty').textContent=num(qty);$('stockValue').textContent=euro(stock);$('buyFeeOut').textContent=euro(qty>0?buyFee:0);$('totalCost').textContent=euro(invested);
+ let qty=0;
+ if(entry>0&&budget>buyFee){qty=(budget-buyFee)/entry;if($('quantityMode').value==='whole')qty=Math.floor(qty);}
+ const stock=qty*entry,invested=stock+(qty>0?buyFee:0),leftover=Math.max(0,budget-invested);
+ $('qty').textContent=num(qty);$('stockValue').textContent=euro(stock);$('buyFeeOut').textContent=euro(qty>0?buyFee:0);$('totalCost').textContent=euro(invested);$('leftover').textContent=euro(leftover);
  function outcome(price){
-  if(qty<=0||price<=0)return {sale:0,net:0,tax:0,gross:0};
-  const sale=qty*price-sellFee;
-  const gross=sale-invested;
-  const taxable=Math.max(0,gross-allowance);
+  if(qty<=0||price<=0)return {sale:0,priceGain:0,costs:0,preTax:0,taxDue:0,net:0,returnPct:0};
+  const sale=qty*price;
+  const priceGain=qty*(price-entry);
+  const costs=buyFee+sellFee;
+  const preTax=priceGain-costs;
+  const taxable=Math.max(0,preTax-allowance);
   const taxDue=taxable*tax;
-  return {sale,net:gross-taxDue,tax:taxDue,gross};
+  const net=preTax-taxDue;
+  return {sale,priceGain,costs,preTax,taxDue,net,returnPct:invested>0?net/invested*100:0};
  }
- const rows=[10,15,18,20].map(p=>{
+ const rows=[5,10,15,18,20].map(p=>{
   const target=entry*(1+p/100),o=outcome(target);
-  return `<tr><td>+${p} %</td><td>${euro(target)}</td><td>${euro(o.sale)}</td><td class="${o.net>=0?'good':'bad'}">${euro(o.net)}</td></tr>`;
+  return `<tr><td>+${p} %</td><td>${euro(target)}</td><td>${euro(o.priceGain)}</td><td>${euro(o.costs)}</td><td class="${o.preTax>=0?'good':'bad'}">${euro(o.preTax)}</td><td>${euro(o.taxDue)}</td><td class="${o.net>=0?'good':'bad'}">${euro(o.net)}</td><td class="${o.returnPct>=0?'good':'bad'}">${pct(o.returnPct)}</td></tr>`;
  }).join('');
- $('targets').innerHTML=rows;
+ $('targets').innerHTML=qty>0&&entry>0?rows:'<tr><td colspan="8">Bitte einen Einstiegskurs und ein Budget oberhalb der Kaufgebühr eingeben.</td></tr>';
  const current=val('current'),co=outcome(current);
- $('currentValue').textContent=current>0?euro(qty*current):'–';
- $('currentNet').textContent=current>0?euro(co.net):'–';
- $('currentNet').className=co.net>=0?'good':'bad';
+ $('currentNet').textContent=current>0&&qty>0?euro(co.net):'–';$('currentNet').className=current>0&&co.net<0?'bad':'good';
  const custom=val('customTarget'),xo=outcome(custom);
- $('customOut').textContent=custom>0?euro(custom):'–';$('customNet').textContent=custom>0?euro(xo.net):'–';$('customNet').className=xo.net>=0?'good':'bad';
- const activation=entry*(1+val('activation')/100),high=val('high'),live=val('live'),trail=val('trail')/100;
+ $('customRise').textContent=custom>0&&entry>0?pct((custom/entry-1)*100):'–';$('customNet').textContent=custom>0&&qty>0?euro(xo.net):'–';$('customNet').className=custom>0&&xo.net<0?'bad':'good';
+ const activation=entry*(1+Number($('activation').value||0)/100),high=val('high'),live=val('live'),trail=val('trail')/100;
  const stop=high>0?high*(1-trail):0;
  $('activationPrice').textContent=entry>0?euro(activation):'–';$('stopPrice').textContent=stop>0?euro(stop):'–';
- $('stopGain').textContent=stop>0&&entry>0?pct((stop/entry-1)*100):'–';
- $('stopGap').textContent=stop>0&&live>0?euro(live-stop):'–';
- const stopOutcome=stop>0?outcome(stop):{net:0,sale:0};
- $('stopNet').textContent=stop>0?euro(stopOutcome.net):'–';
- $('stopNet').className=stopOutcome.net>=0?'good':'bad';
- $('stopSale').textContent=stop>0?euro(stopOutcome.sale):'–';
+ $('stopGain').textContent=stop>0&&entry>0?pct((stop/entry-1)*100):'–';$('stopGap').textContent=stop>0&&live>0?euro(live-stop):'–';
+ const stopOutcome=stop>0?outcome(stop):{net:0,sale:0};$('stopNet').textContent=stop>0?euro(stopOutcome.net):'–';$('stopNet').className=stop>0&&stopOutcome.net<0?'bad':'good';$('stopSale').textContent=stop>0?euro(stopOutcome.sale):'–';
  let msg='Trage den höchsten Kurs seit Aktivierung und den aktuellen Kurs ein.';
- if(entry>0&&high>0){
-  msg=`Der Trailing-Stop liegt rechnerisch bei ${euro(stop)} (höchster Kurs ${euro(high)} abzüglich ${val('trail')} %). `;
-  if(high<activation)msg+='Achtung: Der höchste Kurs liegt noch unter deinem Aktivierungskurs. Prüfe, ob der Trailing-Stop bereits aktiv wäre.';
-  else if(live>0&&live<=stop)msg+='Der aktuelle Kurs liegt am oder unter dem berechneten Stop.';
-  else if(live>0)msg+='Der aktuelle Kurs liegt noch oberhalb des berechneten Stops.';
- }
+ if(entry>0&&high>0){msg=`Der Trailing-Stop liegt rechnerisch bei ${euro(stop)} (höchster Kurs ${euro(high)} abzüglich ${val('trail')} %). `;if(high<activation)msg+='Achtung: Der höchste Kurs liegt noch unter deinem Aktivierungskurs. Prüfe, ob der Trailing-Stop bereits aktiv wäre.';else if(live>0&&live<=stop)msg+='Der aktuelle Kurs liegt am oder unter dem berechneten Stop.';else if(live>0)msg+='Der aktuelle Kurs liegt noch oberhalb des berechneten Stops.';}
  $('stopStatus').textContent=msg;
 }
 document.querySelectorAll('input,select').forEach(el=>el.addEventListener('input',calc));
-document.querySelectorAll('nav button').forEach(btn=>btn.addEventListener('click',()=>{
- document.querySelectorAll('nav button').forEach(b=>b.classList.toggle('active',b===btn));
- document.querySelectorAll('.tab').forEach(s=>s.classList.toggle('hidden',s.id!==btn.dataset.tab));
-}));
-$('addAsset').addEventListener('click',()=>{
- const name=$('assetName').value.trim(),shares=Number($('assetShares').value),buy=Number($('assetBuy').value),now=Number($('assetNow').value);
- if(!name||!(shares>0)||!(buy>0)||!(now>0)){alert('Bitte Wertpapier, Stückzahl, Kaufkurs und aktuellen Kurs korrekt eintragen.');return;}
- portfolio.push({name,shares,buy,now});savePortfolio();
- $('assetName').value='';$('assetShares').value='';$('assetBuy').value='';$('assetNow').value='';
-});
-$('addMore').addEventListener('click',()=>{
- const index=$('buyMoreAsset').value,moreShares=Number($('buyMoreShares').value),morePrice=Number($('buyMorePrice').value),fee=Math.max(0,Number($('buyMoreFee').value)||0);
- if(index===''||!portfolio[Number(index)]||!(moreShares>0)||!(morePrice>0)){alert('Bitte eine Position auswählen sowie Stückzahl und Nachkaufkurs korrekt eintragen.');return;}
- const p=portfolio[Number(index)];
- const oldCost=p.shares*p.buy;
- const totalShares=p.shares+moreShares;
- p.buy=(oldCost+moreShares*morePrice+fee)/totalShares;
- p.shares=totalShares;
- savePortfolio();
- $('buyMoreShares').value='';$('buyMorePrice').value='';
-});
-renderPortfolio();
+document.querySelectorAll('nav button').forEach(btn=>btn.addEventListener('click',()=>{document.querySelectorAll('nav button').forEach(b=>b.classList.toggle('active',b===btn));document.querySelectorAll('.tab').forEach(s=>s.classList.toggle('hidden',s.id!==btn.dataset.tab));}));
 calc();
-</script>
-
-<script>
-if ('serviceWorker' in navigator) {
-  window.addEventListener('load', () => { navigator.serviceWorker.register('./sw.js').catch(console.error); });
-}
 </script>
 </body></html>
