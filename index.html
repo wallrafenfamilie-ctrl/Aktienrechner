@@ -4,36 +4,150 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#101827">
-<title>Mein Aktienrechner</title>
+<title>Aktien-Cockpit 2.3</title>
 <style>
 :root{--bg:#0b1220;--panel:#141f31;--panel2:#1b2940;--text:#f3f6fb;--muted:#aab7ca;--line:#2b3a52;--accent:#7dd3fc;--good:#68d6a3;--bad:#ff8c8c}
 *{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--text);font:16px system-ui,-apple-system,Segoe UI,Roboto,sans-serif;padding:env(safe-area-inset-top) 14px env(safe-area-inset-bottom)}
-main{max-width:900px;margin:auto;padding:18px 0 34px}.top{padding:8px 2px 16px}.eyebrow{color:var(--accent);font-size:12px;font-weight:700;letter-spacing:.12em;text-transform:uppercase}h1{font-size:26px;margin:5px 0}.sub{color:var(--muted);font-size:14px}
-nav{display:flex;gap:7px;overflow:auto;padding:5px 0 14px;position:sticky;top:0;background:var(--bg);z-index:2}nav button{white-space:nowrap;border:1px solid var(--line);background:var(--panel);color:var(--muted);padding:10px 13px;border-radius:12px;font-weight:650}nav button.active{background:var(--accent);color:#082033;border-color:var(--accent)}
-.panel{background:var(--panel);border:1px solid var(--line);border-radius:18px;padding:16px;margin:0 0 13px}h2{font-size:18px;margin:0 0 13px}h3{font-size:14px;margin:0 0 8px;color:var(--muted)}
-.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.field{display:flex;flex-direction:column;gap:6px}.field label{font-size:13px;color:var(--muted)}input,select{width:100%;background:#0d1727;border:1px solid var(--line);border-radius:11px;padding:12px;color:var(--text);font:inherit;min-width:0}input:focus,select:focus{outline:2px solid var(--accent);border-color:transparent}.full{grid-column:1/-1}.muted{color:var(--muted);font-size:12px;line-height:1.5}
-.stats{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px;margin:0 0 12px}.stat{background:var(--panel2);border-radius:13px;padding:12px;min-width:0}.stat small{display:block;color:var(--muted);font-size:12px;margin-bottom:5px}.stat strong{font-size:19px;overflow-wrap:anywhere}.good{color:var(--good)}.bad{color:var(--bad)}.tablewrap{overflow-x:auto}table{width:100%;border-collapse:collapse;font-size:12px;min-width:760px}th,td{text-align:right;padding:10px 8px;border-bottom:1px solid var(--line);white-space:nowrap}th:first-child,td:first-child{text-align:left}th{color:var(--muted);font-weight:600}.note{border-left:3px solid var(--accent);padding:9px 11px;background:#102337;border-radius:7px;color:#c9d9e8;font-size:12px;line-height:1.5}.hidden{display:none!important}.check{display:flex;align-items:center;gap:9px;color:var(--muted);font-size:13px}.check input{width:auto}footer{color:var(--muted);font-size:11px;line-height:1.5;padding:6px 2px}
-@media(max-width:520px){main{padding-top:12px}.grid{gap:9px}.panel{padding:13px}.stat strong{font-size:17px}h1{font-size:24px}}
+main{max-width:760px;margin:auto;padding:18px 0 34px}.top{padding:8px 2px 16px}.eyebrow{color:var(--accent);font-size:12px;font-weight:700;letter-spacing:.12em;text-transform:uppercase}
+h1{font-size:26px;margin:5px 0}.sub{color:var(--muted);font-size:14px}
+nav{display:flex;gap:7px;overflow:auto;padding:5px 0 14px;position:sticky;top:0;background:var(--bg);z-index:2}
+nav button{white-space:nowrap;border:1px solid var(--line);background:var(--panel);color:var(--muted);padding:10px 13px;border-radius:12px;font-weight:650}
+nav button.active{background:var(--accent);color:#082033;border-color:var(--accent)}
+.panel{background:var(--panel);border:1px solid var(--line);border-radius:18px;padding:16px;margin:0 0 13px}
+h2{font-size:18px;margin:0 0 13px}h3{font-size:14px;margin:0 0 8px;color:var(--muted)}
+.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.field{display:flex;flex-direction:column;gap:6px}.field label{font-size:13px;color:var(--muted)}
+input,select{width:100%;background:#0d1727;border:1px solid var(--line);border-radius:11px;padding:12px;color:var(--text);font:inherit;min-width:0}
+input:focus,select:focus{outline:2px solid var(--accent);border-color:transparent}
+.full{grid-column:1/-1}.muted{color:var(--muted);font-size:12px;line-height:1.45}
+.stats{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}
+.stat{background:var(--panel2);border-radius:13px;padding:12px;min-width:0}.stat small{display:block;color:var(--muted);font-size:12px;margin-bottom:5px}.stat strong{font-size:19px;overflow-wrap:anywhere}
+.good{color:var(--good)}.bad{color:var(--bad)}.tablewrap{overflow-x:auto}
+table{width:100%;border-collapse:collapse;font-size:13px;min-width:480px}th,td{text-align:right;padding:10px 7px;border-bottom:1px solid var(--line);white-space:nowrap}th:first-child,td:first-child{text-align:left}th{color:var(--muted);font-weight:600}
+#sectorChips button{border:1px solid var(--line);background:var(--panel2);color:var(--text);padding:10px 8px;border-radius:10px;font-weight:600;font-size:13px}
+#sectorChips button:active,#sectorChips button.selected{border-color:var(--accent);background:#17334a}
+#vSector.dragover{outline:2px dashed var(--accent)}
+.infoDot{display:inline-flex;align-items:center;justify-content:center;width:19px;height:19px;border-radius:50%;border:1px solid var(--accent);background:transparent;color:var(--accent);font-size:12px;font-weight:800;padding:0;margin-left:4px;vertical-align:middle}
+.helpText{font-size:12px;line-height:1.45;color:var(--muted);background:var(--panel2);border:1px solid var(--line);border-radius:8px;padding:8px;margin-top:6px}
+.scoreBadge{display:inline-block;border-radius:999px;padding:4px 9px;font-size:12px;font-weight:800}
+.scoreGreen{background:#123b2d;color:#8ce0b6}.scoreYellow{background:#493a16;color:#f4d36d}.scoreRed{background:#48252a;color:#ff9ca4}
+.note{border-left:3px solid var(--accent);padding:9px 11px;background:#102337;border-radius:7px;color:#c9d9e8;font-size:12px;line-height:1.5}
+.hidden{display:none!important}.check{display:flex;align-items:center;gap:9px;color:var(--muted);font-size:13px}.check input{width:auto}
+footer{color:var(--muted);font-size:11px;line-height:1.5;padding:6px 2px}
+@media(max-width:420px){.grid{gap:9px}.panel{padding:13px}.stat strong{font-size:17px}}
 </style>
 </head>
 <body>
 <main>
-<header class="top"><div class="eyebrow">Privater Rechner</div><h1>Mein Aktienrechner</h1><div class="sub">Kaufplanung · Kursziele · Kosten · Nettogewinn</div></header>
+<header class="top"><div class="eyebrow">Aktien-Cockpit 2.3 · lokale App</div><h1>Aktienanalyse & Rechner</h1><div class="sub">Unternehmen bewerten · Chancen beobachten · Szenarien berechnen</div></header>
 <nav>
-<button class="active" data-tab="kauf">Kauf & Gewinn</button>
+<button class="active" data-tab="bewertung">Aktienbewertung</button>
+<button data-tab="beobachtung">Beobachtung</button>
+<button data-tab="kauf">Kauf & Budget</button>
+<button data-tab="ziele">Kursziele & Gewinn</button>
 <button data-tab="stop">Trailing-Stop</button>
 <button data-tab="einstellungen">Kosten & Steuern</button>
 </nav>
 
-<section id="kauf" class="tab">
+<section id="bewertung" class="tab">
+<div class="panel"><h2>Aktie analysieren – Basisdaten</h2>
+<p class="muted">Beginne mit den wichtigsten Kennzahlen. Fehlende Angaben bleiben offen und werden nicht geschätzt.</p>
+<div class="grid">
+<div class="field"><label for="vName">Unternehmen</label><input id="vName" placeholder="z. B. Beispiel AG"></div>
+<div class="field"><label for="vTicker">Ticker / WKN / ISIN</label><input id="vTicker" placeholder="Kennung"></div>
+<div class="field"><label for="vPrice">Aktueller Aktienkurs (€) <button type="button" class="infoDot" data-help="vPrice" aria-label="Erklärung zu vPrice" title="Erklärung anzeigen">i</button></label><input id="vPrice" type="text" inputmode="text" step="0.0001"><div class="helpText hidden" id="help-vPrice"><b>Last Price / Share Price</b> · Aktueller Börsenkurs je Aktie. Quelle: Broker oder Börsenplatz.</div></div>
+<div class="field"><label for="vEps">Gewinn je Aktie – EPS (€) <button type="button" class="infoDot" data-help="vEps" aria-label="Erklärung zu vEps" title="Erklärung anzeigen">i</button></label><input id="vEps" type="text" inputmode="text" step="0.0001"><div class="helpText hidden" id="help-vEps"><b>EPS / Earnings per Share</b> · Gewinn nach Steuern je Aktie. Häufig: EPS, Earnings per Share, verwässertes EPS. Nicht mit EBITDA je Aktie verwechseln.</div></div>
+<div class="field"><label for="vRevenue">Umsatz (Mio. €) <button type="button" class="infoDot" data-help="vRevenue" aria-label="Erklärung zu vRevenue" title="Erklärung anzeigen">i</button></label><input id="vRevenue" type="text" inputmode="text" step="0.01"><div class="helpText hidden" id="help-vRevenue"><b>Revenue / Sales</b> · Gesamterlös aus dem operativen Geschäft im Geschäftsjahr. Häufig: Umsatz, Revenue, Sales.</div></div>
+<div class="field"><label for="vProfit">Jahresüberschuss (Mio. €) <button type="button" class="infoDot" data-help="vProfit" aria-label="Erklärung zu vProfit" title="Erklärung anzeigen">i</button></label><input id="vProfit" type="text" inputmode="text" step="0.01"><div class="helpText hidden" id="help-vProfit"><b>Net Income / Profit for the year</b> · Gewinn nach Steuern, der den Eigentümern zuzurechnen ist. Häufig: Jahresüberschuss, Periodenergebnis, Net Income, Profit for the year.</div></div>
+<div class="field"><label for="vCash">Operativer Cashflow (Mio. €) <button type="button" class="infoDot" data-help="vCash" aria-label="Erklärung zu vCash" title="Erklärung anzeigen">i</button></label><input id="vCash" type="text" inputmode="text" step="0.01"><div class="helpText hidden" id="help-vCash"><b>Operating Cash Flow</b> · Geldzufluss aus dem laufenden Geschäft. Häufig: Cashflow aus betrieblicher Tätigkeit, Operating Cash Flow (OCF).</div></div>
+<div class="field"><label for="vDebt">Nettoverschuldung (Mio. €) <button type="button" class="infoDot" data-help="vDebt" aria-label="Erklärung zu vDebt" title="Erklärung anzeigen">i</button></label><input id="vDebt" type="text" inputmode="text" step="0.01"><div class="helpText hidden" id="help-vDebt"><b>Net Debt</b> · Finanzschulden abzüglich liquider Mittel. Häufig: Net Debt. Ein negativer Wert bedeutet meist Nettoliquidität.</div></div>
+<div class="field"><label for="vShares">Aktienanzahl (Mio.) <button type="button" class="infoDot" data-help="vShares" aria-label="Erklärung zu vShares" title="Erklärung anzeigen">i</button></label><input id="vShares" type="text" inputmode="text" step="0.01"><div class="helpText hidden" id="help-vShares"><b>Shares Outstanding / Diluted Shares</b> · Ausstehende Aktien; auf die Einheit Mio. achten. Für verwässerte Betrachtungen diluted shares verwenden.</div></div>
+<div class="field"><label for="vTargetPE">Angemessenes KGV (optional überschreiben) <button type="button" class="infoDot" data-help="vTargetPE" aria-label="Erklärung zu vTargetPE" title="Erklärung anzeigen">i</button></label><input id="vTargetPE" type="text" inputmode="text" step="0.1" placeholder="Leer = Modellschätzung"><div class="helpText hidden" id="help-vTargetPE"><b>Target P/E / Fair P/E</b> · Angenommenes angemessenes Kurs-Gewinn-Verhältnis. Leer lassen: Die App schätzt ein KGV anhand eines transparenten, vereinfachten Modells. Ein selbst eingegebener Wert überschreibt diese Schätzung. Keine echten Branchenvergleichsdaten.</div><div id="autoPeHint" class="muted">Automatische Schätzung bei ausreichenden Daten.</div></div>
+<div class="field full"><label for="vDate">Datenstand / Geschäftsjahr</label><input id="vDate" placeholder="z. B. Geschäftsjahr 2025 / Q3 2026"></div>
+</div>
+<div class="field" style="margin-top:12px"><label for="vThesis">Deine Investmentthese, Chancen und Risiken</label><textarea id="vThesis" rows="3" placeholder="Warum ist die Aktie interessant? Was könnte schiefgehen?"></textarea></div>
+</div>
+
+<div class="panel">
+<h2>Branche & Geschäftsmodell</h2>
+<p class="muted">Die Branche bestimmt, welche Kennzahlen stärker gewichtet und mit welchen Vergleichswerten sie eingeordnet werden. Bitte möglichst passend auswählen.</p>
+<div class="grid">
+<div class="field full"><label>Branche auswählen – antippen oder am Desktop in das Auswahlfeld ziehen</label>
+<div id="sectorChips" class="grid">
+<button type="button" draggable="true" data-sector="tech">Technologie</button><button type="button" draggable="true" data-sector="pharma">Pharma</button><button type="button" draggable="true" data-sector="biotech">Biotechnologie</button><button type="button" draggable="true" data-sector="bank">Banken</button><button type="button" draggable="true" data-sector="insurance">Versicherungen</button><button type="button" draggable="true" data-sector="energy">Energie</button><button type="button" draggable="true" data-sector="industry">Industrie</button><button type="button" draggable="true" data-sector="consumer">Konsumgüter</button><button type="button" draggable="true" data-sector="realestate">Immobilien</button><button type="button" draggable="true" data-sector="telecom">Telekommunikation</button><button type="button" draggable="true" data-sector="tourism">Tourismus</button><button type="button" draggable="true" data-sector="other">Sonstige</button>
+</div></div>
+<div class="field"><label for="vSector">Hauptbranche</label><select id="vSector">
+<option value="">Bitte auswählen</option><option value="tech">Technologie / Software</option><option value="pharma">Pharma</option><option value="biotech">Biotechnologie</option><option value="bank">Banken</option><option value="insurance">Versicherungen</option><option value="energy">Energie / Rohstoffe</option><option value="industry">Industrie</option><option value="consumer">Konsumgüter / Handel</option><option value="realestate">Immobilien</option><option value="telecom">Telekommunikation</option><option value="tourism">Tourismus / Reisen / Hotels</option><option value="other">Sonstige / Mischkonzern</option>
+</select></div>
+<div class="field"><label for="vSubsector">Unterbranche / Schwerpunkt</label><input id="vSubsector" placeholder="z. B. Cloud, Onkologie, Solar"></div>
+<div class="field"><label for="vRevenueGrowth">Umsatzwachstum p. a. (%) <button type="button" class="infoDot" data-help="vRevenueGrowth" aria-label="Erklärung zu vRevenueGrowth" title="Erklärung anzeigen">i</button></label><input id="vRevenueGrowth" type="text" inputmode="text" step="0.1" placeholder="z. B. 12"><div class="helpText hidden" id="help-vRevenueGrowth"><b>Revenue Growth</b> · Prozentuale Umsatzveränderung gegenüber dem Vorjahr. Negativ bedeutet Umsatzrückgang.</div></div>
+<div class="field"><label for="vProfitMargin">Nettomarge (%) <button type="button" class="infoDot" data-help="vProfitMargin" aria-label="Erklärung zu vProfitMargin" title="Erklärung anzeigen">i</button></label><input id="vProfitMargin" type="text" inputmode="text" step="0.1" placeholder="z. B. 18"><div class="helpText hidden" id="help-vProfitMargin"><b>Net Profit Margin</b> · Jahresüberschuss geteilt durch Umsatz. Kann bei Verlustunternehmen negativ sein.</div></div>
+<div class="field"><label for="vRoe">Eigenkapitalrendite / ROE (%) <button type="button" class="infoDot" data-help="vRoe" aria-label="Erklärung zu vRoe" title="Erklärung anzeigen">i</button></label><input id="vRoe" type="text" inputmode="text" step="0.1" placeholder="z. B. 14"><div class="helpText hidden" id="help-vRoe"><b>Return on Equity (ROE)</b> · Jahresüberschuss im Verhältnis zum Eigenkapital. Bei negativem Eigenkapital schwer interpretierbar.</div></div>
+<div class="field"><label for="vRoic">Kapitalrendite / ROIC (%) <button type="button" class="infoDot" data-help="vRoic" aria-label="Erklärung zu vRoic" title="Erklärung anzeigen">i</button></label><input id="vRoic" type="text" inputmode="text" step="0.1" placeholder="z. B. 11"><div class="helpText hidden" id="help-vRoic"><b>Return on Invested Capital</b> · Rendite auf das investierte Kapital. Zeigt, wie effizient das Unternehmen Kapital einsetzt.</div></div>
+<div class="field"><label for="vEquity">Eigenkapitalquote (%) <button type="button" class="infoDot" data-help="vEquity" aria-label="Erklärung zu vEquity" title="Erklärung anzeigen">i</button></label><input id="vEquity" type="text" inputmode="text" step="0.1" placeholder="z. B. 40"><div class="helpText hidden" id="help-vEquity"><b>Equity Ratio</b> · Eigenkapital im Verhältnis zur Bilanzsumme. Banken und Versicherungen benötigen zusätzliche regulatorische Kennzahlen.</div></div>
+<div class="field"><label for="vDebtEbitda">Nettoverschuldung / EBITDA <button type="button" class="infoDot" data-help="vDebtEbitda" aria-label="Erklärung zu vDebtEbitda" title="Erklärung anzeigen">i</button></label><input id="vDebtEbitda" type="text" inputmode="text" step="0.1" placeholder="z. B. 1,5"><div class="helpText hidden" id="help-vDebtEbitda"><b>Net Debt / EBITDA</b> · Nettoverschuldung geteilt durch EBITDA. Negativ kann Nettoliquidität bedeuten. Für Banken ungeeignet.</div></div>
+<div class="field"><label for="vFcf">Free Cashflow (Mio. €) <button type="button" class="infoDot" data-help="vFcf" aria-label="Erklärung zu vFcf" title="Erklärung anzeigen">i</button></label><input id="vFcf" type="text" inputmode="text" step="0.01" placeholder="falls verfügbar"><div class="helpText hidden" id="help-vFcf"><b>Free Cash Flow (FCF)</b> · Operativer Cashflow minus Investitionen (CapEx). Negativ bedeutet, dass nach Investitionen Geld abfließt.</div></div>
+<div class="field"><label for="vCashRunway">Cash-Runway (Monate) <button type="button" class="infoDot" data-help="vCashRunway" aria-label="Erklärung zu vCashRunway" title="Erklärung anzeigen">i</button></label><input id="vCashRunway" type="text" inputmode="text" step="1" placeholder="besonders Biotech"><div class="helpText hidden" id="help-vCashRunway"><b>Cash Runway</b> · Geschätzte Monate, die vorhandene Liquidität bei aktuellem Mittelabfluss reicht. Besonders wichtig bei Biotech.</div></div>
+<div class="field"><label for="vEvEbitda">EV / EBITDA <button type="button" class="infoDot" data-help="vEvEbitda" aria-label="Erklärung zu vEvEbitda" title="Erklärung anzeigen">i</button></label><input id="vEvEbitda" type="text" inputmode="text" step="0.1"><div class="helpText hidden" id="help-vEvEbitda"><b>EV / EBITDA</b> · Unternehmenswert im Verhältnis zum EBITDA. Für Banken meist nicht sinnvoll.</div></div>
+<div class="field"><label for="vPs">Kurs-Umsatz-Verhältnis (KUV) <button type="button" class="infoDot" data-help="vPs" aria-label="Erklärung zu vPs" title="Erklärung anzeigen">i</button></label><input id="vPs" type="text" inputmode="text" step="0.1"><div class="helpText hidden" id="help-vPs"><b>Price / Sales (P/S, KUV)</b> · Aktuelle Marktkapitalisierung im Verhältnis zum Umsatz. Besonders bei jungen Wachstumsfirmen relevant.</div></div>
+<div class="field"><label for="vPb">Kurs-Buchwert-Verhältnis (KBV) <button type="button" class="infoDot" data-help="vPb" aria-label="Erklärung zu vPb" title="Erklärung anzeigen">i</button></label><input id="vPb" type="text" inputmode="text" step="0.1"><div class="helpText hidden" id="help-vPb"><b>Price / Book (P/B, KBV)</b> · Aktueller Aktienkurs im Verhältnis zum Buchwert je Aktie. Häufig bei Banken und kapitalintensiven Unternehmen genutzt.</div></div>
+<div class="field"><label for="vForecastGrowth">Erwartetes Gewinnwachstum p. a. (%) <button type="button" class="infoDot" data-help="vForecastGrowth" aria-label="Erklärung zu vForecastGrowth" title="Erklärung anzeigen">i</button></label><input id="vForecastGrowth" type="text" inputmode="text" step="0.1" placeholder="Analysten-/eigene Schätzung"><div class="helpText hidden" id="help-vForecastGrowth"><b>Expected EPS Growth</b> · Erwartetes jährliches Gewinnwachstum. Prognose ist unsicher; Zeitraum und Quelle in den Notizen festhalten.</div></div>
+<div class="field"><label for="vSma50">SMA 50 (gleitender 50-Tage-Durchschnitt, €) <button type="button" class="infoDot" data-help="vSma50" aria-label="Erklärung zu vSma50" title="Erklärung anzeigen">i</button></label><input id="vSma50" type="text" inputmode="text" placeholder="z. B. 12,50"><div class="helpText hidden" id="help-vSma50"><b>50-day Simple Moving Average</b> · Durchschnittlicher Schlusskurs der letzten 50 Handelstage. Kurs unter SMA 50 kann kurzfristige Schwäche anzeigen.</div></div>
+<div class="field"><label for="vSma200">SMA 200 (gleitender 200-Tage-Durchschnitt, €) <button type="button" class="infoDot" data-help="vSma200" aria-label="Erklärung zu vSma200" title="Erklärung anzeigen">i</button></label><input id="vSma200" type="text" inputmode="text" placeholder="z. B. 11,80"><div class="helpText hidden" id="help-vSma200"><b>200-day Simple Moving Average</b> · Durchschnittlicher Schlusskurs der letzten 200 Handelstage. Häufig zur Einordnung des langfristigen Trends genutzt.</div></div>
+<div class="field"><label for="vDataSource">Datenquelle(n) <button type="button" class="infoDot" data-help="vDataSource" aria-label="Erklärung zu vDataSource" title="Erklärung anzeigen">i</button></label><input id="vDataSource" placeholder="z. B. Geschäftsbericht 2025, Aktien.Guide"><div class="helpText hidden" id="help-vDataSource"><b>Source / Reporting Period</b> · Bitte Quelle und Zeitraum notieren, z. B. Geschäftsbericht 2025, Quartalsbericht Q3 2026 oder Aktien.Guide.</div></div>
+</div>
+<p class="note" style="margin-top:12px">Wichtig: Bei Banken sind Verschuldung und EV/EBITDA nur eingeschränkt vergleichbar. Bei Biotech-Unternehmen ohne Gewinn sind KGV und Nettomarge nicht aussagekräftig; hier zählen unter anderem Liquidität, Cash-Burn und Studienfortschritt. Nicht passende Kennzahlen werden nicht künstlich als schlecht gewertet.</p>
+</div>
+
+<div class="panel"><h2>Erste Bewertungsindikatoren</h2>
+<div class="stats">
+<div class="stat"><small>Berechnetes KGV</small><strong id="vPE">–</strong></div>
+<div class="stat"><small>Berechneter Fair Value (mehrere Verfahren)</small><strong id="vFair">–</strong></div>
+<div class="stat"><small>Abstand zum fairen Wert</small><strong id="vUpside">–</strong></div>
+<div class="stat"><small>Kaufzone (20 % Sicherheitsmarge)</small><strong id="vBuy">–</strong></div>
+</div>
+<p class="muted" style="margin-top:12px">Die App berechnet die Bewertung anhand der eingegebenen Daten. Das angemessene KGV ist eine Modellannahme und kein objektiv beobachtbarer Wert. Das DCF-Modell ist bewusst vereinfacht; Prognosen und Datenqualität begrenzen die Aussagekraft.</p>
+<div class="panel" style="margin-top:14px;background:var(--panel2)">
+<h2>Automatische Analyse & Ampeln</h2>
+<div class="stats">
+<div class="stat"><small>Unternehmensqualität</small><strong id="qualityScore">–</strong><div id="qualityLight" class="muted">Noch nicht bewertet</div></div>
+<div class="stat"><small>Aktienbewertung</small><strong id="valuationScore">–</strong><div id="valuationLight" class="muted">Noch nicht bewertet</div></div>
+<div class="stat"><small>Einstiegschance</small><strong id="entryScore">–</strong><div id="entryLight" class="muted">Noch nicht bewertet</div></div>
+<div class="stat"><small>Branchenprofil</small><strong id="sectorLabel">–</strong><div id="sectorHint" class="muted">Branche auswählen</div></div>
+</div>
+<div id="metricLights" style="margin-top:12px"></div>
+</div>
+<div class="panel" style="margin-top:14px">
+<h2>Fair Value & Einstiegsszenarien</h2>
+<div class="stats">
+<div class="stat"><small>Vorsichtiger fairer Wert</small><strong id="fairBear">–</strong></div>
+<div class="stat"><small>Basis-Fair-Value</small><strong id="fairBase">–</strong></div>
+<div class="stat"><small>Optimistischer fairer Wert</small><strong id="fairBull">–</strong></div>
+<div class="stat"><small>Abstand zum Basiswert</small><strong id="baseUpside">–</strong></div>
+<div class="stat"><small>Attraktive Kaufzone</small><strong id="buyZone">–</strong></div>
+<div class="stat"><small>Sehr attraktive Kaufzone</small><strong id="strongBuyZone">–</strong></div>
+<div class="stat"><small>Abstand zur SMA 50</small><strong id="sma50Gap">–</strong><div id="sma50Signal" class="muted">SMA 50 fehlt</div></div>
+<div class="stat"><small>Abstand zur SMA 200</small><strong id="sma200Gap">–</strong><div id="sma200Signal" class="muted">SMA 200 fehlt</div></div>
+<div class="stat"><small>Technisches Dip-Signal</small><strong id="dipSignal">–</strong><div id="dipReason" class="muted">SMA-Werte eingeben</div></div>
+</div>
+<p id="valuationReason" class="note" style="margin-top:12px">Gib Unternehmensdaten ein und wähle eine Branche. Die App erläutert anschließend die Berechnungsgrundlage und Datenlücken.</p>
+<div class="muted" style="margin-top:10px">Die Szenarien sind Modellrechnungen, keine Kursprognosen. Sie beruhen auf deinen Eingaben und transparenten Annahmen. Fehlende Daten werden nicht erfunden.</div>
+</div>
+<button id="saveWatch" type="button" style="margin-top:12px;background:var(--accent);color:#082033;border:0;border-radius:11px;padding:12px;font-weight:700;width:100%">In Beobachtungsliste speichern</button>
+<div id="saveStatus" class="muted" style="margin-top:8px"></div>
+</div>
+</section>
+<section id="beobachtung" class="tab hidden">
+<div class="panel"><h2>Watchlist-Rangliste</h2><p class="muted">Automatische Sortierung nach der Gesamtbewertung (nur bei vollständigen Teilbewertungen). Unvollständige Analysen erscheinen ohne Gesamtscore. Qualität, Bewertung und Einstiegschance fließen ein; ein niedriger Kurs allein macht eine Aktie nicht zum Favoriten.</p><div id="watchRanking" class="muted">Noch keine Aktien gespeichert.</div></div>
+<div class="panel"><h2>Datensicherung</h2><p class="muted">Exportiere deine Watchlist regelmäßig als JSON-Datei. Beim Import werden die derzeit gespeicherten Analysen ersetzt.</p><div class="grid"><button type="button" id="exportWatch">Watchlist sichern</button><label class="field">Sicherung wiederherstellen<input type="file" id="importWatch" accept=".json,application/json"></label></div><div id="backupStatus" class="muted"></div></div><div class="panel"><h2>Meine Beobachtungsliste</h2><p class="muted">Gespeicherte Analysen – ausdrücklich kein Depot. Die Daten bleiben lokal in diesem Browser.</p><div id="watchList" class="muted">Noch keine Aktien gespeichert.</div></div>
+</section>
+<section id="kauf" class="tab hidden">
 <div class="panel">
 <h2>1. Kauf planen</h2>
 <div class="grid">
-<div class="field"><label for="entry">Einstiegskurs je Aktie (€)</label><input id="entry" type="number" min="0" step="0.0001" value="74.27"></div>
-<div class="field"><label for="budget">Dein Budget inklusive Kaufgebühr (€)</label><input id="budget" type="number" min="0" step="0.01" value="150"></div>
-<div class="field"><label for="quantityMode">Kaufmenge</label><select id="quantityMode"><option value="fraction">Bruchstücke zulassen</option><option value="whole">Nur ganze Aktien</option></select></div>
-<div class="field"><label for="current">Aktueller Kurs (€) – optional</label><input id="current" type="number" min="0" step="0.0001" placeholder="z. B. 82,00"></div>
-<div class="field full"><label for="customTarget">Eigenes Kursziel (€) – optional</label><input id="customTarget" type="number" min="0" step="0.0001" placeholder="z. B. 100,00"></div>
+<div class="field"><label for="entry">Einstiegskurs je Aktie (€)</label><input id="entry" type="text" inputmode="text" step="0.0001" value="74.27"></div>
+<div class="field"><label for="budget">Dein Budget inklusive Kaufgebühr (€)</label><input id="budget" type="text" inputmode="text" step="0.01" value="150"></div>
+<div class="field full"><label for="quantityMode">Kaufmenge</label><select id="quantityMode"><option value="fraction">Bruchstücke zulassen</option><option value="whole">Nur ganze Aktien</option></select></div>
 </div>
 </div>
 <div class="stats">
@@ -41,33 +155,35 @@ nav{display:flex;gap:7px;overflow:auto;padding:5px 0 14px;position:sticky;top:0;
 <div class="stat"><small>Wert der Aktien</small><strong id="stockValue">–</strong></div>
 <div class="stat"><small>Kaufgebühr</small><strong id="buyFeeOut">–</strong></div>
 <div class="stat"><small>Gesamteinsatz</small><strong id="totalCost">–</strong></div>
-<div class="stat"><small>Übriges Budget</small><strong id="leftover">–</strong></div>
-<div class="stat"><small>Aktueller Gewinn/Verlust netto</small><strong id="currentNet">–</strong></div>
 </div>
+<p class="muted">Die Stückzahl wird so berechnet, dass dein Budget einschließlich Kaufgebühr nicht überschritten wird.</p>
+</section>
+
+<section id="ziele" class="tab hidden">
+<div class="panel"><h2>2. Kursziele und Nettogewinn</h2>
+<div class="grid">
+<div class="field"><label for="current">Aktueller Kurs (€) – optional</label><input id="current" type="text" inputmode="text" step="0.0001" placeholder="z. B. 82,00"></div>
+<div class="field"><label for="customTarget">Eigenes Kursziel (€) – optional</label><input id="customTarget" type="text" inputmode="text" step="0.0001" placeholder="z. B. 100,00"></div>
+</div></div>
 <div class="panel">
-<h2>2. Kursziele und Gewinn auf einen Blick</h2>
-<div class="tablewrap"><table>
-<thead><tr><th>Kursplus</th><th>Zielkurs</th><th>Wertzuwachs vor Kosten</th><th>Orderkosten gesamt</th><th>Gewinn vor Steuer*</th><th>Steuer</th><th>Gewinn netto</th><th>Netto-Rendite</th></tr></thead>
-<tbody id="targets"><tr><td colspan="8">Bitte Einstiegskurs und Budget eingeben.</td></tr></tbody>
-</table></div>
-<p class="muted" style="margin-top:10px">* Der Wertzuwachs zeigt die reine Kurssteigerung ohne Gebühren. „Gewinn vor Steuer“ zieht Kauf- und Verkaufsgebühr bereits ab. Der Nettogewinn berücksichtigt zusätzlich den eingestellten Steuersatz und den noch verfügbaren Sparer-Pauschbetrag. Die Netto-Rendite bezieht sich auf deinen gesamten Einsatz inklusive Kaufgebühr.</p>
+<div class="tablewrap"><table><thead><tr><th>Kursplus</th><th>Zielkurs</th><th>Verkaufswert</th><th>Gewinn netto*</th></tr></thead><tbody id="targets"></tbody></table></div>
+<div class="muted">* Nach Kauf- und Verkaufsgebühr sowie geschätzter deutscher Abgeltungsteuer. Die Steuer wird nur auf den steuerpflichtigen Gewinn berechnet.</div>
 </div>
-<div class="panel" id="customPanel">
-<h3>Dein eigenes Kursziel</h3>
-<div class="stats" style="margin-bottom:0">
-<div class="stat"><small>Erforderliche Kurssteigerung</small><strong id="customRise">–</strong></div>
-<div class="stat"><small>Geschätzter Nettogewinn</small><strong id="customNet">–</strong></div>
-</div>
+<div class="stats">
+<div class="stat"><small>Wert zum aktuellen Kurs</small><strong id="currentValue">–</strong></div>
+<div class="stat"><small>Gewinn/Verlust netto aktuell</small><strong id="currentNet">–</strong></div>
+<div class="stat"><small>Eigenes Kursziel</small><strong id="customOut">–</strong></div>
+<div class="stat"><small>Netto-Gewinn am eigenen Ziel</small><strong id="customNet">–</strong></div>
 </div>
 </section>
 
 <section id="stop" class="tab hidden">
-<div class="panel"><h2>Trailing-Stop-Rechner</h2>
+<div class="panel"><h2>3. Stop-Loss-Trailing-Rechner</h2>
 <div class="grid">
-<div class="field"><label for="activation">Aktivierung ab Kursplus (%)</label><input id="activation" type="number" step="0.1" value="10"></div>
-<div class="field"><label for="trail">Trailing-Abstand (%)</label><input id="trail" type="number" min="0" step="0.1" value="5"></div>
-<div class="field"><label for="high">Höchster Kurs seit Aktivierung (€)</label><input id="high" type="number" min="0" step="0.0001" placeholder="z. B. 95,00"></div>
-<div class="field"><label for="live">Aktueller Kurs (€)</label><input id="live" type="number" min="0" step="0.0001" placeholder="z. B. 92,00"></div>
+<div class="field"><label for="activation">Aktivierung ab Kursplus (%)</label><input id="activation" type="text" inputmode="text" step="0.1" value="10"></div>
+<div class="field"><label for="trail">Trailing-Abstand (%)</label><input id="trail" type="text" inputmode="text" step="0.1" value="5"></div>
+<div class="field"><label for="high">Höchster Kurs seit Aktivierung (€)</label><input id="high" type="text" inputmode="text" step="0.0001" placeholder="z. B. 95,00"></div>
+<div class="field"><label for="live">Aktueller Kurs (€)</label><input id="live" type="text" inputmode="text" step="0.0001" placeholder="z. B. 92,00"></div>
 </div></div>
 <div class="stats">
 <div class="stat"><small>Aktivierungskurs</small><strong id="activationPrice">–</strong></div>
@@ -77,67 +193,237 @@ nav{display:flex;gap:7px;overflow:auto;padding:5px 0 14px;position:sticky;top:0;
 <div class="stat"><small>Geschätzter Nettogewinn am Stop</small><strong id="stopNet">–</strong></div>
 <div class="stat"><small>Verkaufswert am Stop</small><strong id="stopSale">–</strong></div>
 </div>
-<div class="panel" style="margin-top:13px"><div id="stopStatus" class="note">Trage den höchsten Kurs seit Aktivierung und den aktuellen Kurs ein.</div></div>
+<div class="panel" style="margin-top:13px"><div id="stopStatus" class="note">Trage den höchsten Kurs und den aktuellen Kurs ein. Der Stop wird aus dem höchsten Kurs minus Trailing-Abstand berechnet.</div></div>
 <p class="muted">Der Trailing-Stop folgt dem Kurs nur nach oben, nicht nach unten. In der Praxis kann der tatsächliche Verkaufskurs wegen Kurslücken, Spread und Ausführung vom errechneten Stop abweichen. Dies ist eine Rechenhilfe, keine Order bei deinem Broker.</p>
 </section>
 
 <section id="einstellungen" class="tab hidden">
-<div class="panel"><h2>Gebühren und Steuern einstellen</h2>
+<div class="panel"><h2>4. Gebühren und Steuern einstellen</h2>
 <div class="grid">
-<div class="field"><label for="buyFee">Kaufgebühr je Order (€)</label><input id="buyFee" type="number" min="0" step="0.01" value="1"></div>
-<div class="field"><label for="sellFee">Verkaufsgebühr je Order (€)</label><input id="sellFee" type="number" min="0" step="0.01" value="1"></div>
-<div class="field"><label for="tax">Steuersatz (%)</label><input id="tax" type="number" min="0" max="100" step="0.001" value="26.375"></div>
-<div class="field"><label for="allowance">Noch verfügbarer Sparer-Pauschbetrag (€)</label><input id="allowance" type="number" min="0" step="1" value="0"></div>
+<div class="field"><label for="buyFee">Kaufgebühr je Order (€)</label><input id="buyFee" type="text" inputmode="text" step="0.01" value="1"></div>
+<div class="field"><label for="sellFee">Verkaufsgebühr je Order (€)</label><input id="sellFee" type="text" inputmode="text" step="0.01" value="1"></div>
+<div class="field"><label for="tax">Steuersatz (%)</label><input id="tax" type="text" inputmode="text" max="100" step="0.001" value="26.375"></div>
+<div class="field"><label for="allowance">Noch verfügbarer Sparer-Pauschbetrag (€)</label><input id="allowance" type="text" inputmode="text" step="1" value="0"></div>
 </div>
 <p class="muted" style="margin-top:12px">Voreinstellung: 1 € je Kauf/Verkauf als vereinfachte Orderkosten und 26,375 % Abgeltungsteuer inklusive Solidaritätszuschlag, ohne Kirchensteuer. Den Pauschbetrag kannst du anteilig eintragen. Tatsächliche Steuern hängen unter anderem von Verlustverrechnung, Freistellungsauftrag, Kirchensteuer und deiner persönlichen Steuersituation ab.</p>
 </div>
-<div class="note">Die Berechnung berücksichtigt keine zusätzlichen Spread- oder Börsenplatzkosten. Bei ausländischen Aktien können außerdem Währungsumrechnungskosten anfallen. Die Werte sind Schätzungen und keine Steuerberatung.</div>
+<div class="note">Die Berechnung berücksichtigt keine zusätzlichen Spread- oder Börsenplatzkosten. Bei ausländischen Aktien können außerdem Währungsumrechnungskosten anfallen.</div>
 </section>
-<footer>Alle Berechnungen erfolgen lokal in diesem Browser. Es werden keine Depotdaten an einen Server übertragen. Bitte prüfe vor einer echten Order die Gebühren und steuerlichen Angaben deines Brokers.</footer>
+<footer>Bewertungen und Beobachtungslisten werden lokal in diesem Browser gespeichert. Es gibt keine Depotverwaltung und keine Cloud-Synchronisierung. Bitte prüfe vor einer echten Order die Gebühren und steuerlichen Angaben deines Brokers.</footer>
 </main>
 <script>
 const $=id=>document.getElementById(id);
-const val=id=>Math.max(0,Number($(id).value)||0);
+const parseNum=x=>{if(x===null||x===undefined)return 0;const t=String(x).trim().replace(/\\s/g,'').replace(/\\.(?=\\d{3}(?:\\D|$))/g,'').replace(',','.');const n=Number(t);return Number.isFinite(n)?n:0;};
+const val=id=>Math.max(0,parseNum($(id).value)||0);
 const euro=n=>Number.isFinite(n)?n.toLocaleString('de-DE',{style:'currency',currency:'EUR'}):'–';
 const num=n=>Number.isFinite(n)?n.toLocaleString('de-DE',{maximumFractionDigits:6}):'–';
 const pct=n=>(n>=0?'+':'')+n.toLocaleString('de-DE',{maximumFractionDigits:2})+' %';
+function escapeText(v){return String(v).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));}
+
+
+const watchKey='aktienCockpitWatchlistV2';
+let watchlist=[];try{watchlist=JSON.parse(localStorage.getItem(watchKey)||localStorage.getItem('aktienCockpitWatchlistV1')||'[]');if(!Array.isArray(watchlist))watchlist=[];}catch(e){watchlist=[];}
+const vnum=id=>{const el=$(id);if(!el||el.value.trim()==='')return null;const n=parseNum(el.value);return Number.isFinite(n)?n:null;};
+const vfmt=n=>n===null||!Number.isFinite(n)?'–':euro(n);
+const sectorProfiles={
+ tech:{name:'Technologie / Software',hint:'Wachstum, Margen, Cashflow und Kapitalrendite im Fokus',weights:{growth:2,margin:2,roic:2,debt:1,fcf:2,roe:1}},
+ pharma:{name:'Pharma',hint:'Profitabilität, Cashflow, Pipeline und Patentrisiken beachten',weights:{growth:1,margin:2,roic:2,debt:1,fcf:2,roe:1}},
+ biotech:{name:'Biotechnologie',hint:'Liquidität, Cash-Runway und klinische Entwicklung sind zentral',weights:{growth:1,margin:0,roic:0,debt:1,fcf:1,roe:0,runway:4}},
+ bank:{name:'Banken',hint:'ROE, KBV und Kapitalquoten statt klassischer Industrie-Verschuldung',weights:{growth:1,margin:0,roic:0,debt:0,fcf:0,roe:3,equity:3}},
+ insurance:{name:'Versicherungen',hint:'ROE, Solvabilität und Combined Ratio sind besonders relevant',weights:{growth:1,margin:1,roic:1,debt:0,fcf:1,roe:3,equity:2}},
+ energy:{name:'Energie / Rohstoffe',hint:'Cashflow, Verschuldung, Investitionen und Zyklik beachten',weights:{growth:1,margin:2,roic:2,debt:3,fcf:3,roe:1}},
+ industry:{name:'Industrie',hint:'Margen, Auftragslage, ROIC und Bilanzqualität im Fokus',weights:{growth:1,margin:2,roic:3,debt:2,fcf:2,roe:1}},
+ consumer:{name:'Konsumgüter / Handel',hint:'Margen, Markenstärke, Wachstum und Kapitalrendite beachten',weights:{growth:2,margin:2,roic:2,debt:1,fcf:2,roe:1}},
+ realestate:{name:'Immobilien',hint:'NAV, FFO, Leerstand und Beleihung ergänzend prüfen',weights:{growth:1,margin:0,roic:0,debt:3,fcf:1,roe:1,equity:2}},
+ telecom:{name:'Telekommunikation',hint:'Cashflow, Verschuldung und Investitionsbedarf besonders wichtig',weights:{growth:1,margin:2,roic:1,debt:3,fcf:3,roe:1}},
+ tourism:{name:'Tourismus / Reisen / Hotels',hint:'Auslastung, ADR, RevPAR, Buchungslage, Saisonabhängigkeit und Verschuldung beachten',weights:{growth:2,margin:2,roic:2,debt:2,fcf:2,roe:1}},
+ other:{name:'Sonstige / Mischkonzern' ,hint:'Neutrale Gewichtung; Geschäftsbereiche separat betrachten',weights:{growth:1,margin:1,roic:1,debt:1,fcf:1,roe:1,equity:1}}
+};
+function light(score){return score===null?'Grau – Daten fehlen':score>=70?'Grün – gut':score>=45?'Gelb – prüfen':'Rot – kritisch';}
+function colorClass(score){return score===null?'muted':score>=70?'good':score>=45?'':'bad';}
+function metricScore(key,x,sector){
+ if(x===null)return null;
+ if(key==='growth')return x>=15?90:x>=7?75:x>=0?55:x>=-5?30:10;
+ if(key==='margin')return x>=20?95:x>=10?75:x>=5?55:x>=0?35:10;
+ if(key==='roic'||key==='roe')return x>=20?95:x>=12?80:x>=8?60:x>=4?40:15;
+ if(key==='debt')return x<0?95:x<=1?85:x<=2?65:x<=3?40:10;
+ if(key==='fcf')return x>0?80:10;
+ if(key==='runway')return x>=36?95:x>=24?80:x>=18?60:x>=12?35:10;
+ if(key==='equity')return x>=40?90:x>=25?70:x>=15?45:15;
+ return null;
+}
+function valuationCalc(){
+ const price=vnum('vPrice'),eps=vnum('vEps'),manualPE=vnum('vTargetPE'),sector=$('vSector')?.value||'';
+  // Illustrative heuristic, not observed peer multiples or a validated forecast.
+  const growth=vnum('vForecastGrowth'),roic=vnum('vRoic'),leverage=vnum('vDebtEbitda');
+  const supported=sector && sector!=='biotech' && sector!=='bank' && sector!=='insurance' && sector!=='realestate';
+  let autoPE=null;
+  if(supported && growth!==null && eps!==null && eps>0){
+    autoPE=Math.max(6,Math.min(30,12+Math.max(-10,Math.min(20,growth))*.45+(roic===null?0:roic>=15?2:roic<5?-2:0)+(leverage===null?0:leverage>3?-3:leverage<1?1:0)));
+  }
+  const pe=manualPE!==null&&manualPE>0?manualPE:autoPE;
+  $('autoPeHint').textContent=manualPE!==null&&manualPE>0?'Manuelle Annahme: KGV '+num(manualPE):autoPE!==null?'Modell-KGV: '+num(autoPE)+' (Basis 12 + Wachstums-/Qualitäts-/Verschuldungsanpassung; keine Branchen-Marktdaten)':'Keine automatische KGV-Schätzung: positives EPS, erwartetes Gewinnwachstum und geeignete Branche erforderlich.';
+ const profile=sectorProfiles[sector]||null;
+ const fairPE=eps!==null&&eps>0&&pe!==null&&pe>0?eps*pe:null;
+ const fcf=vnum('vFcf'),shares=vnum('vShares'),debt=vnum('vDebt');
+ // Simplified owner-cash-flow model: only shown when free cash flow and share count are supplied.
+ let fairDCF=null;
+ if(fcf!==null&&fcf>0&&shares!==null&&shares>0){
+   const growth=Math.max(-5,Math.min(20,vnum('vForecastGrowth')??5))/100;
+   const discount=.10, terminal=.025;let pv=0,flow=fcf;
+   for(let y=1;y<=5;y++){flow*=1+growth;pv+=flow/Math.pow(1+discount,y);}
+   const terminalValue=flow*(1+terminal)/(discount-terminal);
+   pv+=terminalValue/Math.pow(1+discount,5);
+   const netDebt=debt??0;
+   fairDCF=Math.max(0,(pv-netDebt)/shares);
+ }
+ // Blend independent methods when available; do not pretend missing methods exist.
+ const values=[fairPE,fairDCF].filter(x=>x!==null&&Number.isFinite(x)&&x>0);
+ const fairBase=values.length?values.reduce((a,b)=>a+b,0)/values.length:null;
+ const fairBear=fairBase!==null?fairBase*.8:null, fairBull=fairBase!==null?fairBase*1.2:null;
+ const buy=fairBase!==null?fairBase*.8:null, strong=fairBase!==null?fairBase*.7:null;
+ $('vPE').textContent=price!==null&&eps!==null&&price>0&&eps>0?(price/eps).toFixed(2).replace('.',','):'–';
+ $('vFair').textContent=vfmt(fairBase);
+ $('vUpside').textContent=fairBase!==null&&price!==null&&price>0?pct((fairBase/price-1)*100):'–';
+ $('vBuy').textContent=vfmt(buy);
+ $('fairBear').textContent=vfmt(fairBear);$('fairBase').textContent=vfmt(fairBase);$('fairBull').textContent=vfmt(fairBull);
+ $('baseUpside').textContent=fairBase!==null&&price!==null&&price>0?pct((fairBase/price-1)*100):'–';
+ $('buyZone').textContent=vfmt(buy);$('strongBuyZone').textContent=vfmt(strong);
+ const sma50=vnum('vSma50'),sma200=vnum('vSma200');
+ const gap50=price!==null&&sma50!==null&&sma50>0?(price/sma50-1)*100:null;
+ const gap200=price!==null&&sma200!==null&&sma200>0?(price/sma200-1)*100:null;
+ $('sma50Gap').textContent=gap50===null?'–':pct(gap50);$('sma200Gap').textContent=gap200===null?'–':pct(gap200);
+ $('sma50Signal').textContent=gap50===null?'SMA 50 fehlt':gap50<0?'Kurs unter SMA 50':'Kurs über SMA 50';
+ $('sma200Signal').textContent=gap200===null?'SMA 200 fehlt':gap200<0?'Kurs unter SMA 200':'Kurs über SMA 200';
+ let dip='Nicht beurteilbar',dipWhy='Beide SMA-Werte und der aktuelle Kurs werden benötigt.';
+ if(gap50!==null&&gap200!==null){
+   if(price<sma200&&sma50<sma200){dip='Abwärtstrend';dipWhy='Kurs und SMA 50 liegen unter SMA 200 – Vorsicht, fallender Trend.';}
+   else if(price<sma50&&price>sma200){dip='Möglicher Dip';dipWhy='Kurzfristige Schwäche bei noch intaktem längerem Trend.';}
+   else if(price>sma50&&sma50>sma200){dip='Aufwärtstrend';dipWhy='Kurs über beiden Durchschnitten, SMA 50 über SMA 200.';}
+   else {dip='Seitwärts / Übergang';dipWhy='Durchschnitte liefern kein eindeutiges Dip-Signal.';}
+ }
+ $('dipSignal').textContent=dip;$('dipReason').textContent=dipWhy;
+
+ $('sectorLabel').textContent=profile?profile.name:'–';$('sectorHint').textContent=profile?profile.hint:'Branche auswählen';
+ const metrics=[
+  ['Umsatzwachstum','growth',vnum('vRevenueGrowth')],['Nettomarge','margin',vnum('vProfitMargin')],['ROE','roe',vnum('vRoe')],['ROIC','roic',vnum('vRoic')],['Eigenkapitalquote','equity',vnum('vEquity')],['Nettoverschuldung / EBITDA','debt',vnum('vDebtEbitda')],['Free Cashflow','fcf',vnum('vFcf')],['Cash-Runway','runway',vnum('vCashRunway')]
+ ];
+ const weights=profile?.weights||sectorProfiles.other.weights;let total=0,weightSum=0;const rendered=[];
+ metrics.forEach(([label,key,value])=>{
+   const weight=weights[key]||0;if(!weight)return;
+   const score=metricScore(key,value,sector);
+   if(score!==null){total+=score*weight;weightSum+=weight;}
+   rendered.push(`<div class="stat"><small>${label}</small><strong class="${score===null?'muted':colorClass(score)}">${score===null?'Keine Angabe':Math.round(score)+'/100'}</strong><div class="muted">${score===null?'Noch offen':light(score)}</div></div>`);
+ });
+ const qScore=weightSum?Math.round(total/weightSum):null;
+ $('qualityScore').textContent=qScore===null?'–':qScore+'/100';$('qualityScore').className=colorClass(qScore);
+ $('qualityLight').textContent=light(qScore);
+ let valScore=null;
+ if(fairBase!==null&&price!==null&&price>0){const upside=(fairBase/price-1)*100;valScore=upside>=30?90:upside>=15?75:upside>=0?60:upside>=-15?35:10;}
+ $('valuationScore').textContent=valScore===null?'–':valScore+'/100';$('valuationScore').className=colorClass(valScore);$('valuationLight').textContent=light(valScore);
+ let entryScore=null;
+ if(buy!==null&&price!==null&&price>0){entryScore=price<=strong?95:price<=buy?80:price<=fairBase?60:price<=fairBase*1.15?35:10;}
+ $('entryScore').textContent=entryScore===null?'–':entryScore+'/100';$('entryScore').className=colorClass(entryScore);$('entryLight').textContent=light(entryScore);
+ $('metricLights').innerHTML=rendered.length?`<div class="stats">${rendered.join('')}</div>`:'<p class="muted">Wähle eine Branche und ergänze passende Kennzahlen, um die Ampeln zu berechnen.</p>';
+ const methods=[];if(fairPE!==null)methods.push(manualPE!==null&&manualPE>0?'KGV-Methode (manuelle Annahme)':'KGV-Methode (heuristische Modellschätzung)');if(fairDCF!==null)methods.push('vereinfachtes DCF-Modell');
+ let reason=methods.length?`Basiswert als Mittelwert aus ${methods.join(' und ')}. Vorsichtiges Szenario: −20 %, optimistisches Szenario: +20 %. `:'Für einen belastbaren Fair Value fehlen noch geeignete Bewertungsdaten. Gib z. B. ein positives EPS plus Gewinnwachstum (oder ein manuelles Ziel-KGV) oder Free Cashflow und Aktienanzahl ein. ';
+ if(sector==='biotech'&&(eps===null||eps<=0))reason+='Bei Biotech ohne Gewinn ist eine klassische KGV-Bewertung ungeeignet; Cash-Runway und klinische Entwicklung müssen separat geprüft werden. ';
+ if(sector==='bank')reason+='Bei Banken sind EV/EBITDA und klassische Nettoverschuldungskennzahlen nur eingeschränkt aussagekräftig; KBV, ROE und regulatorische Kapitalquoten ergänzen die Analyse. ';
+ if(!profile)reason+='Branche noch auswählen, damit die Kennzahlen passend gewichtet werden.';
+ $('valuationReason').textContent=reason;
+ return {fairBase,fairBear,fairBull,buy,strong,qScore,valScore,entryScore,sector:profile?.name||'Nicht ausgewählt'};
+}
+function collectAnalysis(){
+ const result=valuationCalc();
+ const fields=['vName','vTicker','vPrice','vEps','vRevenue','vProfit','vCash','vDebt','vShares','vTargetPE','vDate','vThesis','vSector','vSubsector','vRevenueGrowth','vProfitMargin','vRoe','vRoic','vEquity','vDebtEbitda','vFcf','vCashRunway','vEvEbitda','vPs','vPb','vForecastGrowth','vSma50','vSma200','vDataSource'];
+ const data={};fields.forEach(id=>data[id]=$(id)?.value??'');
+ const scores=[result.qScore,result.valScore,result.entryScore].filter(x=>x!==null);
+ const overall=scores.length===3?Math.round(result.qScore*.4+result.valScore*.3+result.entryScore*.3):null;
+ let overallReason='Noch zu wenige Kennzahlen für eine belastbare Gesamtbewertung.';
+ if(overall!==null){const parts=[];if(result.qScore!==null)parts.push(`Qualität ${result.qScore}/100`);if(result.valScore!==null)parts.push(`Bewertung ${result.valScore}/100`);if(result.entryScore!==null)parts.push(`Einstieg ${result.entryScore}/100`);overallReason=parts.join(' · ')+'. '+(overall>=70?'Insgesamt sprechen die bisherigen Daten eher für das Unternehmen bzw. den Einstieg.':overall>=45?'Gemischtes Bild: Chancen und Risiken halten sich ungefähr die Waage; weitere Prüfung sinnvoll.':'Die bisherigen Daten zeigen deutliche Bewertungs- oder Qualitätsrisiken; derzeit zurückhaltend sein.');}
+ return {...data,...result,overall,overallReason,updated:new Date().toISOString()};
+}
+function renderWatchlist(){
+ const box=$('watchList'),rank=$('watchRanking');
+ if(!watchlist.length){box.textContent='Noch keine Aktien gespeichert.';rank.textContent='Noch keine Aktien gespeichert.';return;}
+ const sorted=[...watchlist].sort((a,b)=>(b.overall??-1)-(a.overall??-1)||(b.entryScore??-1)-(a.entryScore??-1));
+ rank.innerHTML=sorted.map((w,i)=>`<div class="stat" style="margin-bottom:8px"><strong>#${i+1} · ${escapeText(w.vName||'Unbenannte Aktie')} · Gesamt ${w.overall??'–'}/100</strong><div class="muted">${escapeText(w.sector||'Branche offen')} · Qualität ${w.qScore??'–'}/100 · Bewertung ${w.valScore??'–'}/100 · Einstieg ${w.entryScore??'–'}/100</div><div class="muted">Fair Value ${w.fairBase==null?'–':euro(w.fairBase)} · Kaufzone ${w.buy==null?'–':euro(w.buy)}</div></div>`).join('');
+ box.innerHTML=watchlist.map((w,i)=>`<div class="panel"><h3>${escapeText(w.vName||'Unbenannte Aktie')} · ${escapeText(w.vTicker||'')}</h3><div class="muted">${escapeText(w.sector||'Branche offen')}${w.vSubsector?' · '+escapeText(w.vSubsector):''}</div><div class="stats"><div class="stat"><small>Aktueller Kurs</small><strong>${w.vPrice===''?'–':euro(parseNum(w.vPrice))}</strong></div><div class="stat"><small>Basis-Fair-Value</small><strong>${w.fairBase==null?'–':euro(w.fairBase)}</strong></div><div class="stat"><small>Attraktive Kaufzone</small><strong>${w.buy==null?'–':euro(w.buy)}</strong></div><div class="stat"><small>Qualität / Einstieg</small><strong>${w.qScore??'–'} / ${w.entryScore??'–'}</strong></div></div><div style="margin:10px 0"><span class="scoreBadge ${w.overall===null?'':w.overall>=70?'scoreGreen':w.overall>=45?'scoreYellow':'scoreRed'}">${w.overall===null?'Gesamt: offen':`Gesamtbewertung ${w.overall}/100`}</span><div class="muted" style="margin-top:6px">${escapeText(w.overallReason||'Noch keine Begründung vorhanden.')}</div></div>
+<p class="muted">Datenstand: ${escapeText(w.vDate||'nicht angegeben')} · Quelle: ${escapeText(w.vDataSource||'nicht angegeben')}</p>
+<details style="margin:10px 0"><summary>Unternehmensentwicklung / frühere Datenstände (${(w.history||[]).length})</summary>${(w.history||[]).length?(w.history||[]).slice().reverse().map(h=>`<div class="muted" style="padding:7px 0;border-bottom:1px solid var(--line)">${escapeText(h.vDate||new Date(h.updated).toLocaleDateString('de-DE'))}: Kurs ${escapeText(h.vPrice||'–')} · Umsatz ${escapeText(h.vRevenue||'–')} Mio. € · Gewinn ${escapeText(h.vProfit||'–')} Mio. € · EPS ${escapeText(h.vEps||'–')} · Fair Value ${h.fairBase==null?'–':euro(h.fairBase)} · Gesamt ${h.overall??'–'}/100</div>`).join(''):'<p class="muted">Beim nächsten Speichern einer aktualisierten Analyse entsteht hier der erste historische Vergleich.</p>'}</details><div class="grid"><button type="button" data-edit="${i}" style="background:var(--accent);color:#082033;border:0;border-radius:10px;padding:10px">Analyse öffnen</button><button type="button" data-load="${i}" style="background:var(--panel2);color:var(--text);border:1px solid var(--line);border-radius:10px;padding:10px">Kaufrechner laden</button><button type="button" data-remove="${i}" style="background:#38202a;color:#ffd0d0;border:1px solid #69404a;border-radius:10px;padding:10px">Entfernen</button></div></div>`).join('');
+ box.querySelectorAll('[data-remove]').forEach(b=>b.addEventListener('click',()=>{watchlist.splice(Number(b.dataset.remove),1);saveWatchlist();}));
+ box.querySelectorAll('[data-load]').forEach(b=>b.addEventListener('click',()=>{const w=watchlist[Number(b.dataset.load)];if(w.vPrice!=='')$('entry').value=w.vPrice;if(w.fairBase!==null)$('customTarget').value=w.fairBase;document.querySelector('[data-tab="kauf"]').click();calc();}));
+ box.querySelectorAll('[data-edit]').forEach(b=>b.addEventListener('click',()=>{const w=watchlist[Number(b.dataset.edit)];Object.keys(w).forEach(k=>{if($(k))$(k).value=w[k]??'';});document.querySelector('[data-tab="bewertung"]').click();valuationCalc();}));
+}
+function saveWatchlist(){try{localStorage.setItem(watchKey,JSON.stringify(watchlist));renderWatchlist();}catch(e){$('saveStatus').textContent='Speichern fehlgeschlagen: Bitte Browser-Speicher prüfen.';}}
+$('exportWatch').addEventListener('click',()=>{const blob=new Blob([JSON.stringify({format:'Aktien-Cockpit-Watchlist',version:3,exported:new Date().toISOString(),items:watchlist},null,2)],{type:'application/json'});const url=URL.createObjectURL(blob);const a=document.createElement('a');a.href=url;a.download='aktien-cockpit-watchlist-sicherung.json';document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),1000);$('backupStatus').textContent='Sicherung zum Download bereitgestellt.';});
+$('importWatch').addEventListener('change',async e=>{const file=e.target.files[0];if(!file)return;try{if(file.size>5000000)throw Error('Datei zu groß');const data=JSON.parse(await file.text());if(data.format!=='Aktien-Cockpit-Watchlist'||!Array.isArray(data.items)||data.items.some(x=>!x||typeof x!=='object'||typeof x.vName!=='string'||(x.history!==undefined&&!Array.isArray(x.history))))throw Error('Ungültiges Sicherungsformat');if(!confirm('Vorhandene Watchlist durch '+data.items.length+' gesicherte Einträge ersetzen?'))return;watchlist=data.items;saveWatchlist();$('backupStatus').textContent='Sicherung erfolgreich eingelesen.';}catch(err){$('backupStatus').textContent='Import fehlgeschlagen: '+err.message;}finally{e.target.value='';}});
+document.querySelectorAll('#bewertung input,#bewertung select,#bewertung textarea').forEach(el=>el.addEventListener('input',valuationCalc));
+$('saveWatch').addEventListener('click',()=>{
+ const item=collectAnalysis();if(!String(item.vName||'').trim()){$('saveStatus').textContent='Bitte zuerst den Unternehmensnamen eintragen.';return;}
+ const idx=watchlist.findIndex(w=>(w.vTicker&&item.vTicker&&w.vTicker.toLowerCase()===item.vTicker.toLowerCase())||String(w.vName||'').toLowerCase()===String(item.vName).toLowerCase());
+ if(idx>=0){const prior=watchlist[idx];const hist=Array.isArray(prior.history)?prior.history.slice():[];const snap={updated:prior.updated||new Date().toISOString(),vDate:prior.vDate||'',vPrice:prior.vPrice||'',vRevenue:prior.vRevenue||'',vProfit:prior.vProfit||'',vEps:prior.vEps||'',fairBase:prior.fairBase,overall:prior.overall};const changed=['vPrice','vRevenue','vProfit','vEps','vFcf','vDebt','vShares','vDate','vRevenueGrowth','vProfitMargin','vSma50','vSma200','vTargetPE'].some(k=>String(prior[k]??'')!==String(item[k]??''));if(changed)hist.push(snap);item.history=hist;watchlist[idx]=item;}else{item.history=[];watchlist.push(item);}saveWatchlist();$('saveStatus').textContent='Analyse gespeichert. Bei geänderten Kennzahlen bleibt der vorherige Datenstand erhalten.';
+});
+
 function calc(){
  const entry=val('entry'),budget=val('budget'),buyFee=val('buyFee'),sellFee=val('sellFee'),tax=val('tax')/100,allowance=val('allowance');
- let qty=0;
- if(entry>0&&budget>buyFee){qty=(budget-buyFee)/entry;if($('quantityMode').value==='whole')qty=Math.floor(qty);}
- const stock=qty*entry,invested=stock+(qty>0?buyFee:0),leftover=Math.max(0,budget-invested);
- $('qty').textContent=num(qty);$('stockValue').textContent=euro(stock);$('buyFeeOut').textContent=euro(qty>0?buyFee:0);$('totalCost').textContent=euro(invested);$('leftover').textContent=euro(leftover);
+ let qty=0;if(entry>0&&budget>buyFee){qty=(budget-buyFee)/entry;if($('quantityMode').value==='whole')qty=Math.floor(qty);}
+ const stock=qty*entry,invested=stock+(qty>0?buyFee:0);
+ $('qty').textContent=num(qty);$('stockValue').textContent=euro(stock);$('buyFeeOut').textContent=euro(qty>0?buyFee:0);$('totalCost').textContent=euro(invested);
  function outcome(price){
-  if(qty<=0||price<=0)return {sale:0,priceGain:0,costs:0,preTax:0,taxDue:0,net:0,returnPct:0};
-  const sale=qty*price;
-  const priceGain=qty*(price-entry);
-  const costs=buyFee+sellFee;
-  const preTax=priceGain-costs;
-  const taxable=Math.max(0,preTax-allowance);
+  if(qty<=0||price<=0)return {sale:0,net:0,tax:0,gross:0};
+  const sale=qty*price-sellFee;
+  const gross=sale-invested;
+  const taxable=Math.max(0,gross-allowance);
   const taxDue=taxable*tax;
-  const net=preTax-taxDue;
-  return {sale,priceGain,costs,preTax,taxDue,net,returnPct:invested>0?net/invested*100:0};
+  return {sale,net:gross-taxDue,tax:taxDue,gross};
  }
- const rows=[10,15,20].map(p=>{
+ const rows=[5,10,15,18,20].map(p=>{
   const target=entry*(1+p/100),o=outcome(target);
-  return `<tr><td>+${p} %</td><td>${euro(target)}</td><td>${euro(o.priceGain)}</td><td>${euro(o.costs)}</td><td class="${o.preTax>=0?'good':'bad'}">${euro(o.preTax)}</td><td>${euro(o.taxDue)}</td><td class="${o.net>=0?'good':'bad'}">${euro(o.net)}</td><td class="${o.returnPct>=0?'good':'bad'}">${pct(o.returnPct)}</td></tr>`;
+  return `<tr><td>+${p} %</td><td>${euro(target)}</td><td>${euro(o.sale)}</td><td class="${o.net>=0?'good':'bad'}">${euro(o.net)}</td></tr>`;
  }).join('');
- $('targets').innerHTML=qty>0&&entry>0?rows:'<tr><td colspan="8">Bitte einen Einstiegskurs und ein Budget oberhalb der Kaufgebühr eingeben.</td></tr>';
+ $('targets').innerHTML=rows;
  const current=val('current'),co=outcome(current);
- $('currentNet').textContent=current>0&&qty>0?euro(co.net):'–';$('currentNet').className=current>0&&co.net<0?'bad':'good';
+ $('currentValue').textContent=current>0?euro(qty*current):'–';
+ $('currentNet').textContent=current>0?euro(co.net):'–';
+ $('currentNet').className=co.net>=0?'good':'bad';
  const custom=val('customTarget'),xo=outcome(custom);
- $('customRise').textContent=custom>0&&entry>0?pct((custom/entry-1)*100):'–';$('customNet').textContent=custom>0&&qty>0?euro(xo.net):'–';$('customNet').className=custom>0&&xo.net<0?'bad':'good';
- const activation=entry*(1+Number($('activation').value||0)/100),high=val('high'),live=val('live'),trail=val('trail')/100;
+ $('customOut').textContent=custom>0?euro(custom):'–';$('customNet').textContent=custom>0?euro(xo.net):'–';$('customNet').className=xo.net>=0?'good':'bad';
+ const activation=entry*(1+val('activation')/100),high=val('high'),live=val('live'),trail=val('trail')/100;
  const stop=high>0?high*(1-trail):0;
  $('activationPrice').textContent=entry>0?euro(activation):'–';$('stopPrice').textContent=stop>0?euro(stop):'–';
- $('stopGain').textContent=stop>0&&entry>0?pct((stop/entry-1)*100):'–';$('stopGap').textContent=stop>0&&live>0?euro(live-stop):'–';
- const stopOutcome=stop>0?outcome(stop):{net:0,sale:0};$('stopNet').textContent=stop>0?euro(stopOutcome.net):'–';$('stopNet').className=stop>0&&stopOutcome.net<0?'bad':'good';$('stopSale').textContent=stop>0?euro(stopOutcome.sale):'–';
+ $('stopGain').textContent=stop>0&&entry>0?pct((stop/entry-1)*100):'–';
+ $('stopGap').textContent=stop>0&&live>0?euro(live-stop):'–';
+ const stopOutcome=stop>0?outcome(stop):{net:0,sale:0};
+ $('stopNet').textContent=stop>0?euro(stopOutcome.net):'–';
+ $('stopNet').className=stopOutcome.net>=0?'good':'bad';
+ $('stopSale').textContent=stop>0?euro(stopOutcome.sale):'–';
  let msg='Trage den höchsten Kurs seit Aktivierung und den aktuellen Kurs ein.';
- if(entry>0&&high>0){msg=`Der Trailing-Stop liegt rechnerisch bei ${euro(stop)} (höchster Kurs ${euro(high)} abzüglich ${val('trail')} %). `;if(high<activation)msg+='Achtung: Der höchste Kurs liegt noch unter deinem Aktivierungskurs. Prüfe, ob der Trailing-Stop bereits aktiv wäre.';else if(live>0&&live<=stop)msg+='Der aktuelle Kurs liegt am oder unter dem berechneten Stop.';else if(live>0)msg+='Der aktuelle Kurs liegt noch oberhalb des berechneten Stops.';}
+ if(entry>0&&high>0){
+  msg=`Der Trailing-Stop liegt rechnerisch bei ${euro(stop)} (höchster Kurs ${euro(high)} abzüglich ${val('trail')} %). `;
+  if(high<activation)msg+='Achtung: Der höchste Kurs liegt noch unter deinem Aktivierungskurs. Prüfe, ob der Trailing-Stop bereits aktiv wäre.';
+  else if(live>0&&live<=stop)msg+='Der aktuelle Kurs liegt am oder unter dem berechneten Stop.';
+  else if(live>0)msg+='Der aktuelle Kurs liegt noch oberhalb des berechneten Stops.';
+ }
  $('stopStatus').textContent=msg;
 }
 document.querySelectorAll('input,select').forEach(el=>el.addEventListener('input',calc));
-document.querySelectorAll('nav button').forEach(btn=>btn.addEventListener('click',()=>{document.querySelectorAll('nav button').forEach(b=>b.classList.toggle('active',b===btn));document.querySelectorAll('.tab').forEach(s=>s.classList.toggle('hidden',s.id!==btn.dataset.tab));}));
-calc();
+document.querySelectorAll('nav button').forEach(btn=>btn.addEventListener('click',()=>{
+ document.querySelectorAll('nav button').forEach(b=>b.classList.toggle('active',b===btn));
+ document.querySelectorAll('.tab').forEach(s=>s.classList.toggle('hidden',s.id!==btn.dataset.tab));
+}));
+
+
+document.querySelectorAll('.infoDot').forEach(btn=>btn.addEventListener('click',()=>{const panel=$('help-'+btn.dataset.help);if(panel)panel.classList.toggle('hidden');}));
+const sectorSelect=$('vSector');
+document.querySelectorAll('#sectorChips [data-sector]').forEach(chip=>{
+ chip.addEventListener('click',()=>{sectorSelect.value=chip.dataset.sector;document.querySelectorAll('#sectorChips button').forEach(x=>x.classList.toggle('selected',x===chip));valuationCalc();});
+ chip.addEventListener('dragstart',e=>{e.dataTransfer.setData('text/plain',chip.dataset.sector);});
+});
+sectorSelect.addEventListener('dragover',e=>{e.preventDefault();sectorSelect.classList.add('dragover');});
+sectorSelect.addEventListener('dragleave',()=>sectorSelect.classList.remove('dragover'));
+sectorSelect.addEventListener('drop',e=>{e.preventDefault();sectorSelect.classList.remove('dragover');const key=e.dataTransfer.getData('text/plain');if(sectorProfiles[key]){sectorSelect.value=key;document.querySelectorAll('#sectorChips button').forEach(x=>x.classList.toggle('selected',x.dataset.sector===key));valuationCalc();}});
+
+valuationCalc();renderWatchlist();calc();
 </script>
 </body></html>
