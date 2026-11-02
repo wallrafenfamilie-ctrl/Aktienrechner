@@ -4,6 +4,8 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#101827">
+<link rel="manifest" href="./manifest.json">
+<link rel="icon" href="./icon-192.png" sizes="192x192">
 <title>Aktien-Cockpit 3.0</title>
 <style>
 :root{--bg:#0b1220;--panel:#141f31;--panel2:#1b2940;--text:#f3f6fb;--muted:#aab7ca;--line:#2b3a52;--accent:#7dd3fc;--good:#68d6a3;--bad:#ff8c8c}
@@ -425,5 +427,10 @@ sectorSelect.addEventListener('dragleave',()=>sectorSelect.classList.remove('dra
 sectorSelect.addEventListener('drop',e=>{e.preventDefault();sectorSelect.classList.remove('dragover');const key=e.dataTransfer.getData('text/plain');if(sectorProfiles[key]){sectorSelect.value=key;document.querySelectorAll('#sectorChips button').forEach(x=>x.classList.toggle('selected',x.dataset.sector===key));valuationCalc();}});
 
 valuationCalc();renderWatchlist();calc();
+</script>
+<script>
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => navigator.serviceWorker.register('./sw.js').catch(err => console.warn('Service Worker:', err)));
+}
 </script>
 </body></html>

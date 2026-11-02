@@ -1,8 +1,8 @@
 {
   "id": "./",
-  "name": "Mein Aktienrechner",
-  "short_name": "Aktienrechner",
-  "description": "Privater Aktienrechner für Kaufplanung, Kursziele, Gewinn und Trailing-Stop.",
+  "name": "Aktien-Cockpit 3.0",
+  "short_name": "Aktien-Cockpit",
+  "description": "Private Aktienanalyse, Watchlist und Gewinnrechner.",
   "start_url": "./",
   "scope": "./",
   "display": "standalone",
