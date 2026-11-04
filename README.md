@@ -1,4 +1,4 @@
-# Aktien-Cockpit 4.4 – GitHub Pages
+# Aktien-Cockpit 4.4.1 – GitHub Pages
 
 1. **Vor dem Update** in der bisherigen App die Watchlist als JSON exportieren.
 2. Im Repository `wallrafenfamilie-ctrl/Aktienrechner` die Dateien dieses ZIP-Archivs **direkt ins Hauptverzeichnis** hochladen (nicht den ZIP-Ordner).
@@ -19,3 +19,6 @@ Der Nettogewinn wird aus Verkaufserlös minus Kaufkosten, Verkaufsgebühr und ge
 Kapitalübersicht: Einzahlungen minus Auszahlungen plus realisierte Nettoergebnisse plus Nettozinsen. Der optionale aktuelle Gesamtwert ist eine manuelle Kontrollgröße; Differenzen können auch aus Buchungsfehlern, offenen Positionen oder nicht erfassten Kosten entstehen.
 
 Keine Cloud, keine automatischen Börsenkurse und keine Verbindung zu Trade Republic.
+
+## Update 4.4.1
+Für alle Zahlenfelder gibt es nun eine ±-Taste. Sie wechselt das Vorzeichen auch auf Android-Tastaturen ohne Minustaste. Einfach den Betrag eingeben und ± tippen. **Nicht die App deinstallieren oder Website-Daten löschen.** Alle sieben Dateien erneut in dasselbe GitHub-Pages-Verzeichnis hochladen. Nach Veröffentlichung die App vollständig schließen und neu öffnen; ggf. die Website in Chrome neu laden.

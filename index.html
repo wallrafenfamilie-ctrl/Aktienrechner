@@ -2,7 +2,7 @@
 <html lang="de"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="theme-color" content="#f5f7fb"><meta name="description" content="Private Aktienanalyse, Watchlist, Tradingrechner und Kapitalübersicht">
 <link rel="manifest" href="./manifest.json"><link rel="icon" href="./icon-192.png">
-<title>Aktien-Cockpit 4.4</title>
+<title>Aktien-Cockpit 4.4.1</title>
 <style>
 :root{font:15px system-ui,-apple-system,Segoe UI,sans-serif;color:#17243b;background:#f5f7fb}
 *{box-sizing:border-box}body{margin:0}button,input,select,textarea{font:inherit}button{cursor:pointer}
@@ -19,7 +19,7 @@ button.danger{color:#b33339}.tabs button{white-space:nowrap}
 .metric small{display:block;color:#60728a;margin-bottom:7px}.metric strong{font-size:19px;overflow-wrap:anywhere}
 .field label{display:block;font-size:13px;font-weight:650;margin-bottom:5px}
 .field input,.field select,.field textarea{width:100%;border:1px solid #ccd7e5;border-radius:9px;padding:10px;color:#17243b;background:white}
-.info{border-radius:50%;padding:0;width:18px;height:18px;font-size:11px;margin-left:3px}
+.minus-btn{margin-top:5px;padding:5px 12px;background:#edf3ff;color:#235dd0;border:1px solid #b9ccef}.info{border-radius:50%;padding:0;width:18px;height:18px;font-size:11px;margin-left:3px}
 .buttons{display:flex;gap:8px;flex-wrap:wrap;margin:10px 0}.hidden{display:none!important}
 .good{color:#16844b}.bad{color:#bb3542}.warn{color:#a86c1e}
 table{width:100%;border-collapse:collapse;white-space:nowrap;font-size:13px}
@@ -31,7 +31,7 @@ footer{color:#77869a;font-size:12px;padding:10px 0 25px}
 @media(max-width:750px){.grid{grid-template-columns:repeat(2,minmax(0,1fr))}.metrics{grid-template-columns:repeat(2,minmax(0,1fr))}.item{align-items:flex-start;flex-direction:column}.card{padding:13px}}
 @media(max-width:390px){.grid{gap:8px}.metric strong{font-size:16px}main{padding:10px}}
 </style></head><body><main>
-<header class="top"><div><h1>📈 Aktien-Cockpit 4.4</h1><div class="sub">Analysieren · Gewinne planen · Kapital verfolgen</div></div><button id="newBtn">＋ Neue Aktie</button></header>
+<header class="top"><div><h1>📈 Aktien-Cockpit 4.4.1</h1><div class="sub">Analysieren · Gewinne planen · Kapital verfolgen</div></div><button id="newBtn">＋ Neue Aktie</button></header>
 <nav class="tabs"><button class="active" data-tab="analyze">Analyse</button><button data-tab="watch">Watchlist <span id="count">0</span></button><button data-tab="capital">Mein Kapital</button></nav>
 <div id="analyze">
 <section class="card"><h2>1 · Basisanalyse</h2><p class="hint">Sechs Angaben für die erste Einschätzung. Alle Kurse und Kennzahlen manuell eingeben.</p><div class="grid" id="baseFields"></div></section>
@@ -48,12 +48,12 @@ footer{color:#77869a;font-size:12px;padding:10px 0 25px}
 <div id="capital" class="hidden"><section class="card"><h2>Mein Kapital</h2><p class="hint">Manuelle Buchungen. Gewinne und Zinsen netto erfassen; Verluste mit Minuszeichen. Ein Aktienkauf ist keine Auszahlung.</p><div class="metrics" id="capitalMetrics"></div><p id="capitalExplain" class="hint"></p></section>
 <section class="card"><h2>Buchung hinzufügen / bearbeiten</h2><div class="grid">
 <div class="field"><label for="bookingType">Buchungsart</label><select id="bookingType"><option value="deposit">Einzahlung</option><option value="withdrawal">Auszahlung</option><option value="profit">Realisierter Gewinn / Verlust (netto)</option><option value="interest">Zinsen (netto)</option></select></div>
-<div class="field"><label for="bookingAmount">Betrag (€; auch negativ)</label><input id="bookingAmount" type="text" inputmode="decimal" placeholder="z. B. -30,50"></div>
+<div class="field"><label for="bookingAmount">Betrag (€; auch negativ)</label><input id="bookingAmount" type="text" inputmode="text" placeholder="z. B. -30,50"><button type="button" class="minus-btn" data-minus-for="bookingAmount">±</button></div>
 <div class="field"><label for="bookingDate">Datum</label><input id="bookingDate" type="date"></div>
 <div class="field"><label for="bookingNote">Notiz (optional)</label><input id="bookingNote" type="text" placeholder="z. B. Aktienverkauf"></div>
 </div><div class="buttons"><button id="bookingSave" class="primary">Buchung speichern</button><button id="bookingReset">Zurücksetzen</button></div></section>
 <section class="card"><h2>Kontostand / Depotwert (optional)</h2><p class="hint">Zur Kontrolle kannst du den tatsächlichen Gesamtwert deines Trade-Republic-Kontos (Guthaben + aktueller Depotwert) manuell eintragen. Nicht realisierte Kursgewinne werden dann separat als Differenz angezeigt, nicht nochmals zum Kontowert addiert.</p>
-<div class="grid"><div class="field"><label for="actualTotal">Aktueller Gesamtwert (€)</label><input id="actualTotal" type="text" inputmode="decimal" placeholder="Leer lassen, wenn unbekannt"></div></div><div class="buttons"><button id="actualSave">Kontowert speichern</button></div><div id="actualMetrics" class="metrics"></div></section>
+<div class="grid"><div class="field"><label for="actualTotal">Aktueller Gesamtwert (€)</label><input id="actualTotal" type="text" inputmode="text" placeholder="Leer lassen, wenn unbekannt"><button type="button" class="minus-btn" data-minus-for="actualTotal">±</button></div></div><div class="buttons"><button id="actualSave">Kontowert speichern</button></div><div id="actualMetrics" class="metrics"></div></section>
 <section class="card"><h2>Buchungshistorie</h2><div id="bookings"></div><div class="buttons"><button id="capitalExport">Gesamtes Backup exportieren</button></div></section></div>
 <footer>Privat · Manuelle Daten · Keine Cloud · Lokale Speicherung. Vor echten Orders Kurse, Gebühren, Steuer und Spread prüfen. Für sichere Backups regelmäßig JSON exportieren.</footer>
 </main><dialog id="help" style="border:1px solid #dbe3ed;border-radius:14px;max-width:390px"><h3 id="helpTitle"></h3><p id="helpText"></p><form method="dialog"><button>Verstanden</button></form></dialog>
