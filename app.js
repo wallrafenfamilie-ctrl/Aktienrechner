@@ -73,12 +73,33 @@ if(d.price>0&&d.sma50>0&&d.price>d.sma50&&d.rsi>=65)note+=' · Dip: Rücksetzer 
 if(d.price>0&&d.sma50>0&&d.price<d.sma50)note+=' · Unter SMA 50: Stabilisierung abwarten.';
 if(d.price>0&&d.sma200>0&&d.price<d.sma200)note+=' · Unter SMA 200: Langfristiger Trend möglicherweise schwach.';
 $('interpret').textContent=note+' Keine Kaufempfehlung.';renderCalc()}
-function saveState(){try{localStorage.setItem(SK,JSON.stringify(snapshots));localStorage.setItem(K,JSON.stringify(entries));localStorage.setItem(CK,JSON.stringify({bookings,actualTotal}));localStorage.setItem(TK,JSON.stringify({positions,sales,settings}));return true}catch(e){alert('Speichern fehlgeschlagen. Bitte Speicherplatz und Browser-Einstellungen prüfen.');return false}}
-function load(){try{const h=JSON.parse(localStorage.getItem(SK)||'[]');snapshots=Array.isArray(h)?h.filter(validSnapshot):[]}catch{snapshots=[]}try{const e=JSON.parse(localStorage.getItem(K)||'[]');entries=Array.isArray(e)?e:[]}catch{entries=[]}
-try{const c=JSON.parse(localStorage.getItem(CK)||'{}');bookings=Array.isArray(c.bookings)?c.bookings:[];actualTotal=typeof c.actualTotal==='number'?c.actualTotal:null}catch{bookings=[];actualTotal=null}
-try{const t=JSON.parse(localStorage.getItem(TK)||'{}');positions=Array.isArray(t.positions)?t.positions:[];sales=Array.isArray(t.sales)?t.sales:[];settings={goal:658,tax:26.375,lossStart:0,startYear:2026,startMonth:10,...(t.settings||{})}}catch{positions=[];sales=[]}}
+// 4.8.5: Ein einziger atomarer Speicherstand statt vier unabhängig überschriebener Schlüssel.
+const MASTER_KEY='aktien-cockpit-master-4-8-5';
+function saveState(){
+ try{
+  const payload={format:'aktien-cockpit',version:'4.8.5',savedAt:new Date().toISOString(),entries,capital:{bookings,actualTotal},trading:{positions,sales,settings},snapshots};
+  if(!validEntries(payload.entries)||!validCapital(payload.capital)||!Array.isArray(positions)||!Array.isArray(sales)||!Array.isArray(snapshots)||!snapshots.every(validSnapshot))throw Error('Datenprüfung fehlgeschlagen');
+  const json=JSON.stringify(payload);
+  localStorage.setItem(MASTER_KEY,json);
+  if(localStorage.getItem(MASTER_KEY)!==json)throw Error('Speicherprüfung fehlgeschlagen');
+  return true;
+ }catch(e){alert('Speichern fehlgeschlagen: '+e.message+'. Vorhandenes Backup aufbewahren.');return false}
+}
+function load(){
+ try{
+  const raw=localStorage.getItem(MASTER_KEY);
+  if(raw){const data=JSON.parse(raw);if(!validEntries(data.entries)||!validCapital(data.capital)||!Array.isArray(data.trading?.positions)||!Array.isArray(data.trading?.sales)||!Array.isArray(data.snapshots)||!data.snapshots.every(validSnapshot))throw Error('Ungültiger Speicherstand');
+   entries=data.entries;bookings=data.capital.bookings;actualTotal=data.capital.actualTotal??null;positions=data.trading.positions;sales=data.trading.sales;settings={goal:658,tax:26.375,lossStart:0,startYear:2026,startMonth:10,...(data.trading.settings||{})};snapshots=data.snapshots;return;
+  }
+ }catch(e){alert('Gespeicherte Daten konnten nicht geladen werden: '+e.message+'. Bitte das Backup von 19:51 Uhr behalten und nichts speichern.');throw e}
+ // Einmalige Übernahme alter lokaler Daten; alte Schlüssel bleiben unangetastet.
+ try{const h=JSON.parse(localStorage.getItem(SK)||'[]');snapshots=Array.isArray(h)?h.filter(validSnapshot):[]}catch{snapshots=[]}
+ try{const e=JSON.parse(localStorage.getItem(K)||'[]');entries=Array.isArray(e)?e:[]}catch{entries=[]}
+ try{const c=JSON.parse(localStorage.getItem(CK)||'{}');bookings=Array.isArray(c.bookings)?c.bookings:[];actualTotal=typeof c.actualTotal==='number'?c.actualTotal:null}catch{bookings=[];actualTotal=null}
+ try{const t=JSON.parse(localStorage.getItem(TK)||'{}');positions=Array.isArray(t.positions)?t.positions:[];sales=Array.isArray(t.sales)?t.sales:[];settings={goal:658,tax:26.375,lossStart:0,startYear:2026,startMonth:10,...(t.settings||{})}}catch{positions=[];sales=[]}
+}
 function reset(){editId=null;for(const [id] of all)$(id).value='';$('notes')&&($('notes').value='');$('riskMax').value='30';$('buyFee').value='1';$('sellFee').value='1';$('taxRate').value='26,375';$('saveBtn').textContent='In Watchlist speichern';$('saveStatus').textContent='';render()}
-function tab(t){for(const id of ['analyze','watch','bought','capital','wissen'])$(id).classList.toggle('hidden',id!==t);document.querySelectorAll('[data-tab]').forEach(b=>b.classList.toggle('active',b.dataset.tab===t));if(t==='watch')renderWatch();if(t==='wissen'&&window.initWissen)window.initWissen();if(t==='capital'){renderCapital();renderTrades()}if(t==='bought')renderTrades();document.querySelectorAll('#'+t+' details').forEach(d=>d.open=false)}
+function tab(t){for(const id of ['analyze','watch','bought','capital','wissen'])$(id).classList.toggle('hidden',id!==t);document.querySelectorAll('[data-tab]').forEach(b=>b.classList.toggle('active',b.dataset.tab===t));if(t==='watch')renderWatch();if(t==='wissen'&&window.initWissen)window.initWissen();if(t==='capital'){renderCapital();renderTrades()}if(t==='bought')renderTrades();/* Aufklappzustände beim Tabwechsel erhalten */}
 function normId(x){return String(x||'').toUpperCase().replace(/[^A-Z0-9]/g,'')}
 function findPosition(d){const id=normId(d.isin||d.wkn);return positions.find(p=>positionQty(p)>0.000001&&(id&&[p.isin,p.wkn].some(v=>normId(v)===id)||(!id&&p.name.trim().toLowerCase()===String(d.name||'').trim().toLowerCase())))||null}
 function riskFor(d){const c=calc(d),limit=Math.max(0,d.riskMax??30);if(!c.qty||!c.buy)return null;const stop=Math.max(0,(c.qty*c.buy+c.fb+c.fs-limit)/c.qty);return {qty:c.qty,stop,fall:(c.buy-stop)/c.buy*100,limit}}
@@ -136,7 +157,7 @@ $('bookings').innerHTML=bookings.length?[...bookings].sort((a,b)=>b.date.localeC
 
 function foldBookings(){const root=$('bookings');const rows=[...bookings].sort((a,b)=>b.date.localeCompare(a.date));const types={deposit:'Einzahlung',withdrawal:'Auszahlung',profit:'Gewinn/Verlust',interest:'Zinsen'};const years=[...new Set(rows.map(b=>b.date.slice(0,4)))];root.innerHTML=years.map((year,yi)=>{const months=[...new Set(rows.filter(b=>b.date.startsWith(year)).map(b=>b.date.slice(0,7)))];return `<details class="fold" ${yi===0?'open':''}><summary>${year} · ${rows.filter(b=>b.date.startsWith(year)).length} Buchungen</summary><div class="fold-body">${months.map((month,mi)=>{const list=rows.filter(b=>b.date.startsWith(month));const deposits=list.filter(b=>b.type==='deposit').reduce((n,b)=>n+b.amount,0);const gains=list.filter(b=>b.type==='profit').reduce((n,b)=>n+b.amount,0);return `<details class="fold" ${yi===0&&mi===0?'open':''}><summary>${month} · ${list.length} Buchungen <span class="muted">Einzahlungen ${money(deposits)} · Gewinne ${sign(gains)} €</span></summary><div class="fold-body">${list.map(b=>`<div class="item"><div><strong>${esc(b.date)} · ${types[b.type]}</strong><div class="${b.amount<0?'bad':'good'}">${sign(b.amount)} €</div><div class="muted">${esc(b.note||'')}</div></div><div class="buttons"><button data-book-edit="${esc(b.id)}">Bearbeiten</button><button class="danger" data-book-del="${esc(b.id)}">Löschen</button></div></div>`).join('')}</div></details>`}).join('')}</div></details>`}).join('')||'<p class="hint">Noch keine Buchungen.</p>'}
 function bookReset(){bookEdit=null;$('bookingType').value='deposit';$('bookingAmount').value='';$('bookingDate').value=new Date().toLocaleDateString('en-CA');$('bookingNote').value='';$('bookingSave').textContent='Buchung speichern'}
-function exportAll(){const data={format:'aktien-cockpit',version:'4.8.4',exportedAt:new Date().toISOString(),entries,capital:{bookings,actualTotal},trading:{positions,sales,settings},snapshots};const blob=new Blob([JSON.stringify(data,null,2)],{type:'application/json'});const url=URL.createObjectURL(blob);const a=document.createElement('a');a.href=url;a.download='aktien_cockpit_4_8_4_backup.json';document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),10000)}
+function exportAll(){const data={format:'aktien-cockpit',version:'4.8.5',exportedAt:new Date().toISOString(),entries,capital:{bookings,actualTotal},trading:{positions,sales,settings},snapshots};const blob=new Blob([JSON.stringify(data,null,2)],{type:'application/json'});const url=URL.createObjectURL(blob);const a=document.createElement('a');a.href=url;a.download='aktien_cockpit_backup_'+new Date().toLocaleString('sv-SE',{hour12:false}).replace(' ','_').replaceAll(':','-')+'.json';document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),10000)}
 function validEntries(a){return Array.isArray(a)&&a.length<=10000&&a.every(x=>x&&typeof x.id==='string'&&x.id.length<200&&x.data&&typeof x.data==='object'&&!Array.isArray(x.data))}
 function validCapital(c){return c&&Array.isArray(c.bookings)&&c.bookings.length<=50000&&c.bookings.every(b=>b&&typeof b.id==='string'&&['deposit','withdrawal','profit','interest'].includes(b.type)&&typeof b.amount==='number'&&Number.isFinite(b.amount)&&typeof b.date==='string')&&(c.actualTotal==null||typeof c.actualTotal==='number'&&Number.isFinite(c.actualTotal))}
 document.querySelectorAll('[data-tab]').forEach(b=>b.onclick=()=>tab(b.dataset.tab));
