@@ -1,4 +1,1 @@
-Aktien-Cockpit 4.8.6 Testversion
-- Gekaufte Positionen standardmäßig eingeklappt.
-- Optionaler manueller Depotwert unter Mein Depot > Mein Kapital > Depotentwicklung. Ohne Cash eingeben; Cash wird addiert.
-- Backups und Speicherstruktur unverändert. Originalbackup von 19:51 Uhr aufbewahren.
+Aktien-Cockpit 4.8.7 – Testversion. Depotbereiche standardmäßig geschlossen. Kein doppelter DOM-Umbau. Depotwert-Eingabe bleibt bei Neuberechnung erhalten. Tagesstand-Speichern mit Bestätigung. Bitte Original-Backup von 19:51 Uhr behalten.
