@@ -1,10 +1,5 @@
-Aktien-Cockpit 4.8 – GitHub Pages Release
+Aktien-Cockpit 4.8.1 – ohne Bilderordner
 
-Alle Dateien und den gesamten Ordner wissen-bilder direkt ins Stammverzeichnis des GitHub-Pages-Repositories hochladen (nicht die ZIP-Datei selbst).
-Vorher unbedingt in der bisherigen App ein JSON-Backup exportieren. Bestehende lokale Daten verwenden unveränderte localStorage-Schlüssel. Die App über dieselbe GitHub-Pages-URL aufrufen, damit Daten erhalten bleiben.
+Alle Dateien aus diesem Ordner einzeln in das Stammverzeichnis von GitHub hochladen und gleichnamige Dateien ersetzen. Die 163 Abbildungen sind direkt in wissen-data.js enthalten. Kein wissen-bilder-Ordner erforderlich. Vorher JSON-Backup exportieren.
 
-Enthalten: Watchlist, Käufe/Verkäufe, Nachkaufrechner, Depot-Kapitalfluss und Dashboard, ETF-Challenge, Börsenwissen mit Suche, aufklappbaren Oberkapiteln und Favoriten, Bilder und Offline-Service-Worker.
-
-WICHTIG: Cash wird aus Einzahlungen, Auszahlungen, Zinsen, allen Käufen und Netto-Verkaufserlösen berechnet. Manuelle Gewinn-/Verlustbuchungen zählen in der Challenge, NICHT automatisch in Cash (Vermeidung von Doppelzählungen). Bereits vorhandene manuelle Gewinne können mit Trades doppelt in der Challenge stehen; prüfen. Aktuelle Kurse müssen in der Watchlist manuell gepflegt werden; fehlende Kurse machen das Gesamtvermögen unvollständig.
-
-Teststatus: Syntax- und Dateistruktur geprüft; kein vollständiger Browser-/Smartphone-Funktionstest.
+Hinweis: wissen-data.js ist wegen der eingebetteten Bilder größer. Bitte beim Upload vollständig übertragen.
