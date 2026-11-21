@@ -1,4 +1,4 @@
-const CACHE='aktien-cockpit-shell-4-8-1-embedded-v2';
+const CACHE='aktien-cockpit-shell-4-8-2-embedded-v1';
 const SHELL=['./','./index.html','./app.js','./wissen.js','./wissen-data.js','./manifest.json','./icon-192.png','./icon-512.png',];
 self.addEventListener('install',event=>event.waitUntil(caches.open(CACHE).then(async c=>{await c.addAll(SHELL.filter(u=>!u.includes('wissen-bilder/')));await Promise.all(SHELL.filter(u=>u.includes('wissen-bilder/')).map(async u=>{try{await c.add(u)}catch(e){/* images absent on server: app shell remains installable */}}));}).then(()=>self.skipWaiting())));
 self.addEventListener('activate',event=>event.waitUntil(caches.keys().then(keys=>Promise.all(keys.filter(k=>k.startsWith('aktien-cockpit-shell-')&&k!==CACHE).map(k=>caches.delete(k)))).then(()=>self.clients.claim())));
