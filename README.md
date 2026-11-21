@@ -1,1 +1,4 @@
-Aktien-Cockpit 4.8.5 – Datensicherheitskorrektur. Vor Installation Backup separat aufbewahren. Export mit Zeitstempel, atomare Speicherung, ältere Speicherschlüssel bleiben unverändert. Depotaufbau aus 4.8.4b erhalten. Testversion.
+Aktien-Cockpit 4.8.6 Testversion
+- Gekaufte Positionen standardmäßig eingeklappt.
+- Optionaler manueller Depotwert unter Mein Depot > Mein Kapital > Depotentwicklung. Ohne Cash eingeben; Cash wird addiert.
+- Backups und Speicherstruktur unverändert. Originalbackup von 19:51 Uhr aufbewahren.
