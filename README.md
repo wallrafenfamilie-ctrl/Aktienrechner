@@ -1,7 +1,7 @@
-Aktien-Cockpit 4.8.2 – ohne Bilderordner
+Aktien-Cockpit 4.8.3 – GitHub Pages Update
 
-Alle Dateien aus diesem Ordner einzeln in das Stammverzeichnis von GitHub hochladen und gleichnamige Dateien ersetzen. Die 163 Abbildungen sind direkt in wissen-data.js enthalten. Kein wissen-bilder-Ordner erforderlich. Vorher JSON-Backup exportieren.
+Alle 9 Dateien in das bestehende GitHub-Repository hochladen. Kein Bilderordner notwendig. Vorher JSON-Backup exportieren.
 
-Hinweis: wissen-data.js ist wegen der eingebetteten Bilder größer. Bitte beim Upload vollständig übertragen.
+Neu: Depotentwicklung mit zwei Linien (Eigenes Kapital / Gesamtvermögen), Zeitraumfilter, anklickbare gespeicherte Stände, Depotstand speichern, Sicherung und Wiederherstellung der Momentaufnahmen im JSON-Backup.
 
-Korrektur 4.8.2: Vollständig verkaufte Positionen (Restbestand 0) erscheinen nicht mehr unter Gekauft. Die Verkaufs- und Kaufhistorie bleibt für Auswertungen gespeichert.
+Wichtig: Historische Marktwerte entstehen erst durch gespeicherte Momentaufnahmen. Fehlende Kurse verhindern die Speicherung. Buchungen bleiben erhalten.
