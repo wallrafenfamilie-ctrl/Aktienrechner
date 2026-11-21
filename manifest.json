@@ -1,12 +1,12 @@
 {
-  "name": "Aktien-Cockpit 4.5",
+  "name": "Aktien-Cockpit 4.8",
   "short_name": "Aktien-Cockpit",
   "description": "Aktienanalyse, Watchlist, Tradingrechner und Kapitalübersicht",
   "start_url": "./",
   "scope": "./",
   "display": "standalone",
   "background_color": "#f5f7fb",
-  "theme_color": "#235dd0",
+  "theme_color": "#08233e",
   "icons": [
     {
       "src": "./icon-192.png",

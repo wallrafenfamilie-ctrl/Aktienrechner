@@ -1,19 +1,10 @@
-# Aktien-Cockpit 4.6 – GitHub-Pages-Update
+Aktien-Cockpit 4.8 – GitHub Pages Release
 
-1. **Vorher** in Version 4.5 ein vollständiges JSON-Backup exportieren und sicher ablegen.
-2. Diese sieben Dateien im bestehenden GitHub-Repository im Stammverzeichnis hochladen und vorhandene Dateien ersetzen.
-3. Die App nicht deinstallieren und keine Browser-/App-Daten löschen.
-4. App nach Aktualisierung neu öffnen. Alte Watchlist, Buchungen und Trades bleiben unter denselben localStorage-Schlüsseln.
-5. Kontrolliere zuerst Aktienanzahl, offene Positionen, abgeschlossene Verkäufe und Kapitalwerte.
-6. ISIN/WKN bei Bedarf nachtragen. Es werden **keine** Käufe automatisch gebucht oder doppelte Einträge gelöscht.
-7. Jahrziele können pro Jahr geändert werden. Für 2026 gilt als Vorschlag 658 × 3/12 = 164,50 €.
+Alle Dateien und den gesamten Ordner wissen-bilder direkt ins Stammverzeichnis des GitHub-Pages-Repositories hochladen (nicht die ZIP-Datei selbst).
+Vorher unbedingt in der bisherigen App ein JSON-Backup exportieren. Bestehende lokale Daten verwenden unveränderte localStorage-Schlüssel. Die App über dieselbe GitHub-Pages-URL aufrufen, damit Daten erhalten bleiben.
 
-Wichtig: Dies ist eine lokale PWA. Vor jedem größeren Update ein JSON-Backup sichern. Stop- und Steuerrechner sind Modellrechnungen.
+Enthalten: Watchlist, Käufe/Verkäufe, Nachkaufrechner, Depot-Kapitalfluss und Dashboard, ETF-Challenge, Börsenwissen mit Suche, aufklappbaren Oberkapiteln und Favoriten, Bilder und Offline-Service-Worker.
 
-## Ergänzung: Trade-Effizienz
-- Unter **Abgeschlossene Verkäufe** hat jeder Verkauf einen aufklappbaren Effizienz-Reiter.
-- Unter **Offene Positionen** erscheinen Haltedauer und die Auswertung bereits realisierter Teilverkäufe.
-- Unter **ETF-Challenge & Statistik** gibt es die aufklappbare **Trade-Effizienz** nach Jahr, Monat und Haltedauer (0–14, 15–60, über 60 Tage).
-- Kennzahlen: Nettogewinn, Nettorendite auf verkauftes Kapital, durchschnittliche Haltedauer, linear vergleichbare 30-Tage-Werte, Trefferquote und Zahl der Verkäufe.
-- Bei Teilverkäufen gilt die gewichtete Haltedauer der tatsächlich verkauften FIFO-Tranchen. Ein Teilverkauf zählt in der Trefferquote als ein Verkauf.
-- 30-Tage-Kennzahlen sind **keine Prognose**; die aggregierte Rendite ist **keine Depotjahresrendite**. Bereits bestehende lokale Daten werden nicht überschrieben.
+WICHTIG: Cash wird aus Einzahlungen, Auszahlungen, Zinsen, allen Käufen und Netto-Verkaufserlösen berechnet. Manuelle Gewinn-/Verlustbuchungen zählen in der Challenge, NICHT automatisch in Cash (Vermeidung von Doppelzählungen). Bereits vorhandene manuelle Gewinne können mit Trades doppelt in der Challenge stehen; prüfen. Aktuelle Kurse müssen in der Watchlist manuell gepflegt werden; fehlende Kurse machen das Gesamtvermögen unvollständig.
+
+Teststatus: Syntax- und Dateistruktur geprüft; kein vollständiger Browser-/Smartphone-Funktionstest.
