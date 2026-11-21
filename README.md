@@ -1,7 +1,6 @@
-Aktien-Cockpit 4.8.4 – Testversion
+Aktien-Cockpit 4.8.4b – Depotansicht neu geordnet.
 
-Drei Linien im Depot: Eigenkapital, Eigenkapital plus realisierte Netto-Ergebnisse aus Verkäufen, Gesamtvermögen.
+1 Mein Kapital (1a Buchung, 1b Depotentwicklung), 2 Tradeeffizienz, 3 ETF-Challenge, 4 Jahreszieleingabe, 5 Buchungshistorie.
+Kontostand/Depotwert manuelle Eingabe ausgeblendet, vorhandene Werte nicht gelöscht.
 
-Wichtig: Orange berücksichtigt dokumentierte Verkäufe, nicht manuelle Ergebnisbuchungen (diese könnten sonst doppelt zählen). Ältere gespeicherte Depotstände ohne realisierten Zwischenstand werden anhand der derzeit erfassten Verkäufe zum jeweiligen Datum berechnet. Das kann bei nachträglichen Änderungen von Verkäufen abweichen.
-
-Vor GitHub-Update JSON-Backup erstellen. Alle neun Dateien im Repository ersetzen und App neu laden.
+Vor Update JSON-Backup sichern. Alle neun Dateien aktualisieren.
