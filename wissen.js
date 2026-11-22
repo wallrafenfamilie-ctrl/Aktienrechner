@@ -1,7 +1,7 @@
 (()=>{'use strict';
 const docs=window.AKTIEN_WISSEN||[];const $=id=>document.getElementById(id);
 let mode='toc',selected=null,ready=false;
-const favKey='aktien-cockpit-wissen-favoriten-v1';
+const favKey='aktien-cockpit-wissen-favoriten-v2';
 let favorites=[];try{const a=JSON.parse(localStorage.getItem(favKey)||'[]');if(Array.isArray(a))favorites=a.filter(Number.isInteger)}catch{}
 const norm=s=>String(s||'').toLocaleLowerCase('de').normalize('NFD').replace(/[\u0300-\u036f]/g,'');
 const esc=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
